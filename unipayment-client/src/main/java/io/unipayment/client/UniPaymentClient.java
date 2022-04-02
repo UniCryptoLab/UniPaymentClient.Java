@@ -38,11 +38,11 @@ public interface UniPaymentClient {
      *
      * @param apiVersion Api Version
      * @param invoiceId  Invoice Id
-     * @return {@link Response<TransactionList>}
+     * @return {@link Response< InvoiceDetailModel >}
      * @throws UniPaymentException
      */
     @RequestLine("GET /api/v{apiVersion}/invoices/{invoiceId}")
-    Response<TransactionList> queryInvoiceById(@Param("apiVersion") String apiVersion, @Param("invoiceId") String invoiceId) throws UniPaymentException;
+    Response<InvoiceDetailModel> queryInvoiceById(@Param("apiVersion") String apiVersion, @Param("invoiceId") String invoiceId) throws UniPaymentException;
 
     /**
      * Query Ips

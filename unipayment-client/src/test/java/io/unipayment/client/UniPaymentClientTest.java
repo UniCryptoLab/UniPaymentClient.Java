@@ -53,7 +53,7 @@ public class UniPaymentClientTest {
 
     @Test
     public void testQueryInvoiceById() throws UniPaymentException {
-        Response<TransactionList> response = uniPaymentClient.queryInvoiceById(configuration.getApiVersion(), "9EfHVGLDjQssJv7xnBsDSM");
+        Response<InvoiceDetailModel> response = uniPaymentClient.queryInvoiceById(configuration.getApiVersion(), "9EfHVGLDjQssJv7xnBsDSM");
         Assert.assertEquals(response.getCode(), "OK");
     }
 
