@@ -11,6 +11,11 @@
                     <h2>Invoice Submit Form</h2>
                 </div>
                 <p>&nbsp;</p>
+                <div th:if="${error}">
+                    <div class="alert alert-danger" role="alert">
+                        <div th:text="${msg}"></div>
+                    </div>
+                </div>
                 <form method="POST">
                     <div class="row mb-3">
                         <label for="apiHost" class="col-sm-2 col-form-label">Api Host</label>

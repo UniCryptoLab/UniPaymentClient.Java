@@ -1,6 +1,7 @@
 package io.unipayment.client.models;
 
 import io.unipayment.client.Utils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.TreeMap;
 
@@ -26,7 +27,9 @@ public class QueryInvoiceRequest extends TreeMap<String, Object> {
 
     public void setInvoiceId(String invoiceId) {
         this.invoiceId = invoiceId;
-        put("invoice_id", invoiceId);
+        if (StringUtils.isNotBlank(this.invoiceId)) {
+            put("invoice_id", this.invoiceId);
+        }
     }
 
     public String getOrderId() {
@@ -35,7 +38,9 @@ public class QueryInvoiceRequest extends TreeMap<String, Object> {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
-        put("order_id", orderId);
+        if (StringUtils.isNotBlank(this.orderId)) {
+            put("order_id", this.orderId);
+        }
     }
 
     public String getStatus() {
@@ -44,7 +49,9 @@ public class QueryInvoiceRequest extends TreeMap<String, Object> {
 
     public void setStatus(String status) {
         this.status = status;
-        put("status", status);
+        if (StringUtils.isNotBlank(this.status)) {
+            put("status", this.status);
+        }
     }
 
     public int getPageNo() {
@@ -80,7 +87,9 @@ public class QueryInvoiceRequest extends TreeMap<String, Object> {
 
     public void setStart(String start) {
         this.start = start;
-        put("start", start);
+        if (StringUtils.isNotBlank(this.start)) {
+            put("start", this.start);
+        }
     }
 
     public String getEnd() {
@@ -89,6 +98,8 @@ public class QueryInvoiceRequest extends TreeMap<String, Object> {
 
     public void setEnd(String end) {
         this.end = end;
-        put("end", end);
+        if (StringUtils.isNotBlank(this.end)) {
+            put("end", this.end);
+        }
     }
 }

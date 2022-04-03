@@ -9,6 +9,6 @@ public abstract class BaseController {
     protected String apiKey;
     @Value("${api.host}")
     protected String apiHost;
-    @Value("${api.version")
+    @Value("${api.version}")
     protected String apiVersion;
 }

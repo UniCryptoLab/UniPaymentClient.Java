@@ -3,7 +3,7 @@ package io.unipayment.client.example.dto;
 import lombok.Data;
 
 @Data
-public class QueryInvoiceDto extends BaseDto {
+public class QueryInvoiceRequestDto extends BaseDto {
     private String invoiceId;
     private String orderId;
     private String status;

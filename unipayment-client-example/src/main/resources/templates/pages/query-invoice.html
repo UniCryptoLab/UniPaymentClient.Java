@@ -12,7 +12,18 @@
                     <h2>Invoice Query Form </h2>
                 </div>
                 <p>&nbsp;</p>
-                <form method="post" id="queryInvoiceForm">
+                <div th:if="${error}">
+                    <div class="alert alert-danger" role="alert">
+                        <div th:text="${msg}"></div>
+                    </div>
+                </div>
+                <div th:if="${success}">
+                    <div class="alert alert-success" role="alert">
+                        Items Count: <span th:text="${resultCount}"></span>
+                    </div>
+                </div>
+                <form method="post" id="queryInvoiceForm" th:action="@{/query-invoice}"
+                      th:object="${queryInvoiceRequestDto}">
                     <div class="row mb-3">
                         <label for="apiHost" class="col-sm-2 col-form-label">Api Host</label>
                         <div class="col-lg-10">
@@ -38,19 +49,20 @@
                         <label for="invoiceId" class="col-sm-2 col-form-label">Invoice ID</label>
                         <div class="col-lg-10">
                             <input type="text" class="form-control" id="invoiceId" placeholder="Invoice ID"
-                                   name="invoiceId">
+                                   name="invoiceId" th:field="*{invoiceId}">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="orderId" class="col-sm-2 col-form-label">Order ID</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" id="orderId" placeholder="Order ID" name="orderId">
+                            <input type="text" class="form-control" id="orderId" placeholder="Order ID" name="orderId"
+                                   th:field="*{orderId}">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="status" class="col-sm-2 col-form-label">Status</label>
                         <div class="col-lg-10">
-                            <select class="custom-select" name="status" id="status">
+                            <select class="custom-select" name="status" id="status" th:field="*{status}">
                                 <option value="">None</option>
                                 <option value="new">New</option>
                                 <option value="paid">Paid</option>
@@ -64,19 +76,20 @@
                     <div class="row mb-3">
                         <label for="start" class="col-sm-2 col-form-label">Start Date / Time</label>
                         <div class="col-lg-10">
-                            <input class="form-control" name="start" id="start" type="datetime-local"/>
+                            <input class="form-control" name="start" id="start" type="datetime-local"
+                                   th:field="*{start}"/>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="end" class="col-sm-2 col-form-label">End Date / Time</label>
                         <div class="col-lg-10">
-                            <input class="form-control" name="end" id="end" type="datetime-local"/>
+                            <input class="form-control" name="end" id="end" type="datetime-local" th:field="*{end}"/>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="isAsc" class="col-sm-2 col-form-label">Is Ascending</label>
                         <div class="col-lg-10">
-                            <select class="custom-select" name="isAsc" id="isAsc">
+                            <select class="custom-select" name="isAsc" id="isAsc" th:field="*{isAsc}">
                                 <option value="true">True</option>
                                 <option value="false">False</option>
                             </select>
@@ -109,7 +122,19 @@
                 </tr>
                 </thead>
                 <tbody>
-
+                <th:block th:each="obj: ${queryResult}">
+                    <tr>
+                        <td th:text="${obj.invoiceId}"></td>
+                        <td th:text="${obj.orderId}"></td>
+                        <td th:text="${obj.priceAmount}"></td>
+                        <td th:text="${obj.priceCurrency}"></td>
+                        <td th:text="${obj.payAmount}"></td>
+                        <td th:text="${obj.payCurrency}"></td>
+                        <td th:text="${obj.paidAmount}"></td>
+                        <td th:text="${obj.status}"></td>
+                        <td><a th:href="${obj.invoiceUrl}">CheckOut</a></td>
+                    </tr>
+                </th:block>
                 </tbody>
             </table>
         </div>

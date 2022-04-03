@@ -13,13 +13,13 @@ public class InvoiceModel {
     private String appId;
 
     @JsonProperty("invoice_id")
-    private String InvoiceId;
+    private String invoiceId;
 
     @JsonProperty("order_id")
-    private String OrderId;
+    private String orderId;
 
     @JsonProperty("price_amount")
-    private Double PriceAmount;
+    private Double priceAmount;
 
     @JsonProperty("price_currency")
     private String priceCurrency;
