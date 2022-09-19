@@ -1,4 +1,1 @@
-# UniPaymentClient.Java
-
-https://unipayment.readme.io/
-
+unipayment-client/README.md

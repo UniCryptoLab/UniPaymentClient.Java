@@ -7,6 +7,7 @@ public class CreateInvoiceRequestDto extends BaseDto {
     private Double priceAmount;
     private String priceCurrency;
     private String payCurrency;
+    private String payNetwork;
     private String notifyUrl;
     private String redirectUrl;
     private String orderId;

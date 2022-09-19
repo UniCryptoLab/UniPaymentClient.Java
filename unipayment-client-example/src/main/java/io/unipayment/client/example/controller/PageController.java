@@ -52,6 +52,7 @@ public class PageController extends BaseController {
                 .priceAmount(createInvoiceRequestDto.getPriceAmount())
                 .priceCurrency(createInvoiceRequestDto.getPriceCurrency())
                 .payCurrency(createInvoiceRequestDto.getPayCurrency())
+                .payNetwork(createInvoiceRequestDto.getPayNetwork())
                 .notifyURL(createInvoiceRequestDto.getNotifyUrl())
                 .redirectURL(createInvoiceRequestDto.getRedirectUrl())
                 .orderId(createInvoiceRequestDto.getOrderId())

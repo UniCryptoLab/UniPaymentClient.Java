@@ -20,6 +20,9 @@ public class CreateInvoiceRequest {
     @JsonProperty("pay_currency")
     private String payCurrency;
 
+    @JsonProperty("network")
+    private String payNetwork;
+
     @JsonProperty("notify_url")
     private String notifyURL;
 

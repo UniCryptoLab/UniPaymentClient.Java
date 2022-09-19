@@ -1,10 +1,8 @@
 package io.unipayment.client;
 
-import feign.Headers;
-import feign.Param;
-import feign.QueryMap;
-import feign.RequestLine;
+import feign.*;
 import io.unipayment.client.models.*;
+import io.unipayment.client.models.Response;
 
 import java.util.List;
 
@@ -19,7 +17,7 @@ public interface UniPaymentClient {
      * @return {@link Response<InvoiceModel>}
      * @throws UniPaymentException
      */
-    @RequestLine("POST /api/v{apiVersion}/invoices")
+    @RequestLine("POST /v{apiVersion}/invoices")
     Response<InvoiceModel> createInvoice(@Param("apiVersion") String apiVersion, CreateInvoiceRequest createInvoiceRequest) throws UniPaymentException;
 
     /**
@@ -30,7 +28,7 @@ public interface UniPaymentClient {
      * @return {@link Response<QueryResult<InvoiceModel>>}
      * @throws UniPaymentException
      */
-    @RequestLine("GET /api/v{apiVersion}/invoices")
+    @RequestLine("GET /v{apiVersion}/invoices")
     Response<QueryResult<InvoiceModel>> queryInvoices(@Param("apiVersion") String apiVersion, @QueryMap QueryInvoiceRequest queryInvoiceRequest) throws UniPaymentException;
 
     /**
@@ -41,7 +39,7 @@ public interface UniPaymentClient {
      * @return {@link Response< InvoiceDetailModel >}
      * @throws UniPaymentException
      */
-    @RequestLine("GET /api/v{apiVersion}/invoices/{invoiceId}")
+    @RequestLine("GET /v{apiVersion}/invoices/{invoiceId}")
     Response<InvoiceDetailModel> queryInvoiceById(@Param("apiVersion") String apiVersion, @Param("invoiceId") String invoiceId) throws UniPaymentException;
 
     /**
@@ -51,7 +49,7 @@ public interface UniPaymentClient {
      * @return {@link Response<List<String>>}
      * @throws UniPaymentException
      */
-    @RequestLine("GET /api/v{apiVersion}/ips")
+    @RequestLine("GET /v{apiVersion}/ips")
     Response<List<String>> queryIps(@Param("apiVersion") String apiVersion) throws UniPaymentException;
 
     /**
@@ -61,7 +59,7 @@ public interface UniPaymentClient {
      * @return {@link Response<List<Currency>>}
      * @throws UniPaymentException
      */
-    @RequestLine("GET /api/v{apiVersion}/currencies")
+    @RequestLine("GET /v{apiVersion}/currencies")
     Response<List<Currency>> getCurrencies(@Param("apiVersion") String apiVersion) throws UniPaymentException;
 
     /**
@@ -72,7 +70,7 @@ public interface UniPaymentClient {
      * @return {@link Response<List<ExchangeRate>>}
      * @throws UniPaymentException
      */
-    @RequestLine("GET /api/v{apiVersion}/rates/{fiatCurrency}")
+    @RequestLine("GET /v{apiVersion}/rates/{fiatCurrency}")
     Response<List<ExchangeRate>> getExchangeRateByFiatCurrency(@Param("apiVersion") String apiVersion, @Param("fiatCurrency") String fiatCurrency) throws UniPaymentException;
 
     /**
@@ -84,8 +82,22 @@ public interface UniPaymentClient {
      * @return {@link Response<ExchangeRate>}
      * @throws UniPaymentException
      */
-    @RequestLine("GET /api/v{apiVersion}/rates/{fiatCurrency}/{cryptoCurrency}")
+    @RequestLine("GET /v{apiVersion}/rates/{fiatCurrency}/{cryptoCurrency}")
     Response<ExchangeRate> getExchangeRateByCurrencyPair(@Param("apiVersion") String apiVersion, @Param("fiatCurrency") String fiatCurrency, @Param("cryptoCurrency") String cryptoCurrency) throws UniPaymentException;
+
+
+    /**
+     * Check IPN notification
+     *
+     * @param apiVersion     Api Version
+     * @param notify   IPN notify
+     * @return {@link Response<CheckIPNResponse>}
+     * @throws UniPaymentException
+     */
+    @RequestLine("POST /v{apiVersion}/ipn")
+    @Body("{body}")
+    Response<CheckIPNResponse> checkIPN(@Param("apiVersion") String apiVersion,  @Param("body") String notify) throws UniPaymentException;
+
 
     /**
      * Create a default HTTP Client
