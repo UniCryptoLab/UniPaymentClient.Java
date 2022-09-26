@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Configuration {
-    private String appId;
-    private String apiKey;
+    private String clientId;
+    private String clientSecret;
     private String baseUrl;
     private Boolean debug;
     private String apiVersion;

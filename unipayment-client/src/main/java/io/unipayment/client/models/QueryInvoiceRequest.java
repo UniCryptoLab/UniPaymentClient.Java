@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.TreeMap;
 
 public class QueryInvoiceRequest extends TreeMap<String, Object> {
+
+    private String appId;
     private String invoiceId;
     private String orderId;
     private String status;
@@ -19,6 +21,17 @@ public class QueryInvoiceRequest extends TreeMap<String, Object> {
         put("page_no", pageNo);
         put("page_size", pageSize);
         put("rd", Utils.getCurrentUtcTime());
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+        if (StringUtils.isNotBlank(this.appId)) {
+            put("app_id", this.appId);
+        }
     }
 
     public String getInvoiceId() {

@@ -13,11 +13,18 @@ public class UniPaymentClientTest {
     private UniPaymentClient uniPaymentClient;
     private Configuration configuration;
 
+    private String clientId="74feb539-ba5a-4ae9-b901-4da4fb539574";
+    private String clientSecret="BsoRhgqzhR1TYMtwTRYdPxBTvR5rxkW9K";
+    private String appId="2a9bd90b-fe95-4659-83cb-04de662fbbac";
+    private String invoiceId="SrAARgNrPgvveiBQtNc4gk";
+
+
+
     @Before
     public void init() {
         configuration = new Configuration();
-        configuration.setAppId("cee1b9e2-d90c-4b63-9824-d621edb38012");
-        configuration.setApiKey("9G62Fd7fCQGyznVvatk4SAfGsHDEt819E");
+        configuration.setClientId(this.clientId);
+        configuration.setClientSecret(this.clientSecret);
         configuration.setBaseUrl("https://sandbox-api.unipayment.io");
         configuration.setDebug(true);
         configuration.setApiVersion("1.0");
@@ -28,6 +35,7 @@ public class UniPaymentClientTest {
     @Test
     public void testCreateInvoice() throws UniPaymentException {
         CreateInvoiceRequest createInvoiceRequest = CreateInvoiceRequest.builder()
+                .appId(this.appId)
                 .priceAmount(100d)
                 .priceCurrency("USD")
                 .payCurrency("USDT")
@@ -53,7 +61,7 @@ public class UniPaymentClientTest {
 
     @Test
     public void testQueryInvoiceById() throws UniPaymentException {
-        Response<InvoiceDetailModel> response = uniPaymentClient.queryInvoiceById(configuration.getApiVersion(), "9EfHVGLDjQssJv7xnBsDSM");
+        Response<InvoiceDetailModel> response = uniPaymentClient.queryInvoiceById(configuration.getApiVersion(), this.invoiceId);
         Assert.assertEquals(response.getCode(), "OK");
     }
 
@@ -88,7 +96,7 @@ public class UniPaymentClientTest {
         if(response.getCode().equals("OK"))
         {
             // handle business logic
-            return "SUCCESS"
+            //return "SUCCESS";
         }
         Assert.assertEquals(response.getCode(), "OK");
     }

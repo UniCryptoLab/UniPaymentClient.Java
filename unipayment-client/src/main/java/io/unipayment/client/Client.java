@@ -59,8 +59,8 @@ public final class Client<T> {
         assert decoder != null : "decoder is required";
         assert StringUtils.isNotBlank(configuration.getBaseUrl()) : "baseUrl is required";
         assert StringUtils.isNotBlank(configuration.getApiVersion()) : "api version is required";
-        assert StringUtils.isNotBlank(configuration.getAppId()) : "app id is required";
-        assert StringUtils.isNotBlank(configuration.getApiKey()) : "api key is required";
+        assert StringUtils.isNotBlank(configuration.getClientId()) : "client id is required";
+        assert StringUtils.isNotBlank(configuration.getClientSecret()) : "client secret is required";
 
         Feign.Builder builder = Feign.builder().encoder(encoder).decoder(decoder).contract(new Contract.Default());
         if (client != null) {
@@ -73,7 +73,7 @@ public final class Client<T> {
             builder.logger(new Slf4jLogger(type)).logLevel(Logger.Level.FULL);
         }
         List<RequestInterceptor> requestInterceptors = new ArrayList<>();
-        requestInterceptors.add(new UniPaymentRequestInterceptor(configuration.getBaseUrl(), configuration.getAppId(), configuration.getApiKey()));
+        requestInterceptors.add(new UniPaymentRequestInterceptor(configuration.getBaseUrl(), configuration.getClientId(), configuration.getClientSecret()));
 
         builder.requestInterceptors(requestInterceptors);
         return builder.target(type, configuration.getBaseUrl());

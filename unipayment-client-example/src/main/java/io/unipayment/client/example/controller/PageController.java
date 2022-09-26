@@ -35,20 +35,22 @@ public class PageController extends BaseController {
     @GetMapping("/create-invoice")
     public String createQuery(Model model) {
         model.addAttribute("pageTitle", "Create Invoice");
-        addAPiDetails(model);
+        model.addAttribute("appId", appId);
+        addOpenClientDetails(model);
         return "pages/create-invoice";
     }
 
     @PostMapping("/create-invoice")
     public String postCreateQuery(Model model, CreateInvoiceRequestDto createInvoiceRequestDto) {
         Configuration configuration = new Configuration();
-        configuration.setAppId(createInvoiceRequestDto.getAppId());
-        configuration.setApiKey(createInvoiceRequestDto.getApiKey());
+        configuration.setClientId(createInvoiceRequestDto.getClientId());
+        configuration.setClientSecret(createInvoiceRequestDto.getClientSecret());
         configuration.setBaseUrl(createInvoiceRequestDto.getApiHost());
         configuration.setDebug(true);
         configuration.setApiVersion(apiVersion);
 
         CreateInvoiceRequest createInvoiceRequest = CreateInvoiceRequest.builder()
+                .appId(createInvoiceRequestDto.getAppId())
                 .priceAmount(createInvoiceRequestDto.getPriceAmount())
                 .priceCurrency(createInvoiceRequestDto.getPriceCurrency())
                 .payCurrency(createInvoiceRequestDto.getPayCurrency())
@@ -71,12 +73,12 @@ public class PageController extends BaseController {
             } else {
                 model.addAttribute("error", true);
                 model.addAttribute("msg", response.getMsg());
-                addAPiDetails(model);
+                addOpenClientDetails(model);
             }
             return "pages/create-invoice";
         } catch (UniPaymentException e) {
             model.addAttribute("msg", e.getMessage());
-            addAPiDetails(model);
+            addOpenClientDetails(model);
             return "pages/create-invoice";
         }
     }
@@ -84,7 +86,7 @@ public class PageController extends BaseController {
     @GetMapping("/query-invoice")
     public String queryQuery(QueryInvoiceRequestDto queryInvoiceRequestDto, Model model) {
         model.addAttribute("pageTitle", "Query Invoice");
-        addAPiDetails(model);
+        addOpenClientDetails(model);
         model.addAttribute("queryInvoiceRequestDto", queryInvoiceRequestDto);
         return "pages/query-invoice";
     }
@@ -92,8 +94,8 @@ public class PageController extends BaseController {
     @PostMapping(value = "query-invoice", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     public String queryInvoice(@ModelAttribute QueryInvoiceRequestDto queryInvoiceRequestDto, Model model) {
         Configuration configuration = new Configuration();
-        configuration.setAppId(queryInvoiceRequestDto.getAppId());
-        configuration.setApiKey(queryInvoiceRequestDto.getApiKey());
+        configuration.setClientId(queryInvoiceRequestDto.getClientId());
+        configuration.setClientSecret(queryInvoiceRequestDto.getClientSecret());
         configuration.setBaseUrl(queryInvoiceRequestDto.getApiHost());
         configuration.setApiVersion(apiVersion);
         configuration.setDebug(true);
@@ -118,7 +120,7 @@ public class PageController extends BaseController {
         } catch (UniPaymentException e) {
             model.addAttribute("resultCount", 0);
         }
-        addAPiDetails(model);
+        addOpenClientDetails(model);
         return "pages/query-invoice";
     }
 
@@ -127,9 +129,9 @@ public class PageController extends BaseController {
      *
      * @param model {@link  Model}
      */
-    private void addAPiDetails(Model model) {
-        model.addAttribute("appId", appId);
-        model.addAttribute("apiKey", apiKey);
+    private void addOpenClientDetails(Model model) {
+        model.addAttribute("clientId", clientId);
+        model.addAttribute("clientSecret", clientSecret);
         model.addAttribute("apiHost", apiHost);
     }
 }

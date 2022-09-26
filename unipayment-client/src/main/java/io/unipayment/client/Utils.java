@@ -21,11 +21,11 @@ public final class Utils {
         return Base64.encodeBase64String(hash);
     }
 
-    public static String sign(String appId, String apiKey, String requestHttpMethod, String requestUri, long requestTimeStamp, String nonce, String requestContentBase64String) {
-        String signatureRawData = appId + requestHttpMethod + requestUri + requestTimeStamp + nonce + requestContentBase64String;
-        byte[] hmac = new HmacUtils(HmacAlgorithms.HMAC_SHA_256, apiKey.getBytes(StandardCharsets.UTF_8)).hmac(signatureRawData);
+    public static String sign(String clientId, String clientSecret, String requestHttpMethod, String requestUri, long requestTimeStamp, String nonce, String requestContentBase64String) {
+        String signatureRawData = clientId + requestHttpMethod + requestUri + requestTimeStamp + nonce + requestContentBase64String;
+        byte[] hmac = new HmacUtils(HmacAlgorithms.HMAC_SHA_256, clientSecret.getBytes(StandardCharsets.UTF_8)).hmac(signatureRawData);
         String requestSignatureBase64String = Base64.encodeBase64String(hmac);
-        return appId + ":" + requestSignatureBase64String + ":" + nonce + ":" + requestTimeStamp;
+        return clientId + ":" + requestSignatureBase64String + ":" + nonce + ":" + requestTimeStamp;
     }
 
     public static String getCurrentUtcTime() {

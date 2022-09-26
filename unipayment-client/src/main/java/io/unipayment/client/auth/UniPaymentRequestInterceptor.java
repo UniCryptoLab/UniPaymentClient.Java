@@ -72,7 +72,7 @@ public class UniPaymentRequestInterceptor implements RequestInterceptor {
     private void addAgent(RequestTemplate requestTemplate) {
         String version = getClass().getPackage().getImplementationVersion();
         if (version == null) {
-            version = "1.0.0.0";
+            version = "1.0.0";
         }
         String userAgent = UNIPAYMENT_SDK_JAVA + "/" + version + " (" + SystemUtils.OS_NAME + " " + SystemUtils.OS_VERSION + ")";
         requestTemplate.header("User-Agent", userAgent);

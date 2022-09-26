@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class CreateInvoiceRequestDto extends BaseDto {
+
+    private String appId;
     private Double priceAmount;
     private String priceCurrency;
     private String payCurrency;

@@ -11,6 +11,9 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CreateInvoiceRequest {
 
+    @JsonProperty("app_id")
+    private String appId;
+
     @JsonProperty("price_amount")
     private Double priceAmount;
 
