@@ -27,7 +27,6 @@ import io.unipayment.client.UniPaymentClient;
 configuration = new Configuration();
 configuration.setClientId("client id");
 configuration.setClientSecret("client secret");
-configuration.setApiVersion("1.0");
 configuration.setBaseUrl("https://api.unipayment.io");
 configuration.setDebug(true);
 
@@ -45,7 +44,6 @@ import io.unipayment.client.UniPaymentClient;
 configuration = new Configuration();
 configuration.setClientId("client id");
 configuration.setClientSecret("client secret");
-configuration.setApiVersion("1.0");
 configuration.setBaseUrl("https://sandbox-api.unipayment.io");
 configuration.setDebug(true);
 
@@ -77,7 +75,6 @@ CreateInvoiceRequest createInvoiceRequest = CreateInvoiceRequest.builder()
 configuration = new Configuration();
 configuration.setClientId("client id");
 configuration.setClientSecret("client secret");
-configuration.setApiVersion("1.0");
 configuration.setBaseUrl("https://sandbox-api.unipayment.io");
 configuration.setDebug(true);
 
@@ -128,7 +125,6 @@ import io.unipayment.client.UniPaymentClient;
 configuration = new Configuration();
 configuration.setClientId("client id");
 configuration.setClientSecret("client secret");
-configuration.setApiVersion("1.0");
 configuration.setBaseUrl("https://sandbox-api.unipayment.io");
 configuration.setDebug(true);
 

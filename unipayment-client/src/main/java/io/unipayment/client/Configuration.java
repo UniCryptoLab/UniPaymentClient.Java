@@ -10,5 +10,5 @@ public class Configuration {
     private String clientSecret;
     private String baseUrl;
     private Boolean debug;
-    private String apiVersion;
+    private String apiVersion="1.0";
 }

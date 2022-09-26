@@ -27,7 +27,6 @@ public class UniPaymentClientTest {
         configuration.setClientSecret(this.clientSecret);
         configuration.setBaseUrl("https://sandbox-api.unipayment.io");
         configuration.setDebug(true);
-        configuration.setApiVersion("1.0");
 
         uniPaymentClient = UniPaymentClient.getInstance(configuration);
     }
