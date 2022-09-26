@@ -25,8 +25,8 @@ import io.unipayment.client.Configuration;
 import io.unipayment.client.UniPaymentClient;
 
 configuration = new Configuration();
-configuration.setAppId("appId");
-configuration.setApiKey("apiKey");
+configuration.setClientId("client id");
+configuration.setClientSecret("client secret");
 configuration.setApiVersion("1.0");
 configuration.setBaseUrl("https://api.unipayment.io");
 configuration.setDebug(true);
@@ -43,8 +43,8 @@ import io.unipayment.client.Configuration;
 import io.unipayment.client.UniPaymentClient;
 
 configuration = new Configuration();
-configuration.setAppId("appId");
-configuration.setApiKey("apiKey");
+configuration.setClientId("client id");
+configuration.setClientSecret("client secret");
 configuration.setApiVersion("1.0");
 configuration.setBaseUrl("https://sandbox-api.unipayment.io");
 configuration.setDebug(true);
@@ -62,6 +62,7 @@ import io.unipayment.client.UniPaymentClient;
 import io.unipayment.client.models.*;
 
 CreateInvoiceRequest createInvoiceRequest = CreateInvoiceRequest.builder()
+            .appId('payment app id')
             .priceAmount(2d)
             .priceCurrency("USD")
             .payCurrency("USDT")
@@ -74,8 +75,8 @@ CreateInvoiceRequest createInvoiceRequest = CreateInvoiceRequest.builder()
             .build();
 
 configuration = new Configuration();
-configuration.setAppId("appId");
-configuration.setApiKey("apiKey");
+configuration.setClientId("client id");
+configuration.setClientSecret("client secret");
 configuration.setApiVersion("1.0");
 configuration.setBaseUrl("https://sandbox-api.unipayment.io");
 configuration.setDebug(true);
@@ -125,8 +126,8 @@ import io.unipayment.client.Configuration;
 import io.unipayment.client.UniPaymentClient;
 
 configuration = new Configuration();
-configuration.setAppId("appId");
-configuration.setApiKey("apiKey");
+configuration.setClientId("client id");
+configuration.setClientSecret("client secret");
 configuration.setApiVersion("1.0");
 configuration.setBaseUrl("https://sandbox-api.unipayment.io");
 configuration.setDebug(true);
