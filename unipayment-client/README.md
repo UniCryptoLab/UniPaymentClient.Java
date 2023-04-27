@@ -62,7 +62,7 @@ import io.unipayment.client.UniPaymentClient;
 import io.unipayment.client.models.*;
 
 CreateInvoiceRequest createInvoiceRequest = CreateInvoiceRequest.builder()
-            .appId('payment app id')
+            .appId("payment app id")
             .priceAmount(2d)
             .priceCurrency("USD")
             .payCurrency("USDT")
