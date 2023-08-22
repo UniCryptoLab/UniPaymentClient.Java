@@ -152,9 +152,10 @@ public class UniPaymentClientTest {
     @Test
     public void WalletAPI_test2_CreateWithdrawal() throws UniPaymentException {
         CreateWithdrawalRequest createWithdrawalRequest = CreateWithdrawalRequest.builder()
-                .amount(0.01)
-                .assetType("BNB")
+                .amount(1.01)
+                .assetType("USDT")
                 .includeFee(true)
+                .autoConfirm(false)
                 .network("NETWORK_BSC")
                 .build();
         Response<WithdrawalModel> response = uniPaymentClient.createWithdrawal(configuration.getApiVersion(), createWithdrawalRequest);

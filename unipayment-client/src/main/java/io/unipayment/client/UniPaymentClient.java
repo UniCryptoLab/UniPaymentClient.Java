@@ -107,7 +107,7 @@ public interface UniPaymentClient {
      * @throws UniPaymentException
      */
     @RequestLine("POST /v{apiVersion}/payouts")
-    Response<PayoutDetailModel> createPayout(@Param("apiVersion") String apiVersion, @Param("body") CreatePayoutRequest request) throws UniPaymentException;
+    Response<PayoutDetailModel> createPayout(@Param("apiVersion") String apiVersion, CreatePayoutRequest request) throws UniPaymentException;
 
     /**
      * Get Payout By ID
@@ -150,7 +150,7 @@ public interface UniPaymentClient {
      * @throws UniPaymentException
      */
     @RequestLine("POST /v{apiVersion}/wallet/withdrawals")
-    Response<WithdrawalModel> createWithdrawal(@Param("apiVersion") String apiVersion, @Param("body") CreateWithdrawalRequest request) throws UniPaymentException;
+    Response<WithdrawalModel> createWithdrawal(@Param("apiVersion") String apiVersion, CreateWithdrawalRequest request) throws UniPaymentException;
 
     /**
      * Get Withdrawal Id
@@ -172,7 +172,7 @@ public interface UniPaymentClient {
      * @throws UniPaymentException
      */
     @RequestLine("POST /v{apiVersion}/wallet/withdrawals")
-    Response<Void> cancelWithdrawal(@Param("apiVersion") String apiVersion, @Param("body") CancelWithdrawalRequest request) throws UniPaymentException;
+    Response<Void> cancelWithdrawal(@Param("apiVersion") String apiVersion, CancelWithdrawalRequest request) throws UniPaymentException;
 
     /**
      * Query Withdrawals
