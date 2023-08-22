@@ -48,8 +48,14 @@ public class UniPaymentRequestInterceptor implements RequestInterceptor {
             }
         }
 
-        String url = (host + requestTemplate.url()).toLowerCase();
         String requestHttpMethod = requestTemplate.method();
+        if ("GET".equalsIgnoreCase(requestHttpMethod)) {
+            if (!requestTemplate.queries().containsKey("rd")) {
+                requestTemplate.query("rd", Utils.getCurrentUtcTime());
+            }
+        }
+
+        String url = (host + requestTemplate.url()).toLowerCase();
         String requestUri = UriUtils.encode(url, StandardCharsets.UTF_8);
         long requestTimeStamp = (System.currentTimeMillis() / 1000);
         String nonce = UUID.randomUUID().toString().replaceAll("-", "");
@@ -62,6 +68,7 @@ public class UniPaymentRequestInterceptor implements RequestInterceptor {
         requestTemplate.header("Authorization", "Hmac " + sign);
 
         addAgent(requestTemplate);
+        requestTemplate.header("X-Request-ID", Utils.generateRequestId());
     }
 
     /**

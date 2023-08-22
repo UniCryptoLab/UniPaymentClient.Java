@@ -2,6 +2,9 @@ package io.unipayment.client.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.unipayment.client.models.enums.ConfirmSpeed;
+import io.unipayment.client.models.enums.InvoiceErrorStatus;
+import io.unipayment.client.models.enums.InvoiceStatus;
 import lombok.Data;
 
 import java.util.Date;
@@ -48,13 +51,13 @@ public class InvoiceModel {
     private Date expirationTime;
 
     @JsonProperty("confirm_speed")
-    private String confirmSpeed;
+    private ConfirmSpeed confirmSpeed;
 
     @JsonProperty("status")
-    private String status;
+    private InvoiceStatus status;
 
     @JsonProperty("error_status")
-    private String errorStatus;
+    private InvoiceErrorStatus errorStatus;
 
     @JsonProperty("invoice_url")
     private String invoiceUrl;

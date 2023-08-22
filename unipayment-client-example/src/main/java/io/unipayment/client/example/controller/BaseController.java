@@ -11,7 +11,6 @@ public abstract class BaseController {
     protected String apiHost;
     @Value("${apiVersion}")
     protected String apiVersion;
-
     @Value("${appId}")
     protected String appId;
 }

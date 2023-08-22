@@ -1,8 +1,8 @@
 package io.unipayment.client;
 
 import feign.*;
-import io.unipayment.client.models.*;
 import io.unipayment.client.models.Response;
+import io.unipayment.client.models.*;
 
 import java.util.List;
 
@@ -89,15 +89,101 @@ public interface UniPaymentClient {
     /**
      * Check IPN notification
      *
-     * @param apiVersion     Api Version
-     * @param notify   IPN notify
+     * @param apiVersion Api Version
+     * @param notify     IPN notify
      * @return {@link Response<CheckIPNResponse>}
      * @throws UniPaymentException
      */
     @RequestLine("POST /v{apiVersion}/ipn")
     @Body("{body}")
-    Response<CheckIPNResponse> checkIPN(@Param("apiVersion") String apiVersion,  @Param("body") String notify) throws UniPaymentException;
+    Response<CheckIPNResponse> checkIPN(@Param("apiVersion") String apiVersion, @Param("body") String notify) throws UniPaymentException;
 
+    /**
+     * Create Payout
+     *
+     * @param apiVersion Api Version
+     * @param request    Create Payout Request
+     * @return {@link Response<PayoutDetailModel>}
+     * @throws UniPaymentException
+     */
+    @RequestLine("POST /v{apiVersion}/payouts")
+    Response<PayoutDetailModel> createPayout(@Param("apiVersion") String apiVersion, @Param("body") CreatePayoutRequest request) throws UniPaymentException;
+
+    /**
+     * Get Payout By ID
+     *
+     * @param apiVersion Api Version
+     * @param payoutId   Payout Id
+     * @return {@link Response< PayoutDetailModel >}
+     * @throws UniPaymentException
+     */
+    @RequestLine("GET /v{apiVersion}/payouts/{payoutId}")
+    Response<PayoutDetailModel> getPayoutById(@Param("apiVersion") String apiVersion, @Param("payoutId") String payoutId) throws UniPaymentException;
+
+    /**
+     * Query Payouts
+     *
+     * @param apiVersion         Api Version
+     * @param queryPayoutRequest {@link QueryPayoutRequest}
+     * @return {@link Response<QueryResult<PayoutModel>>}
+     * @throws UniPaymentException
+     */
+    @RequestLine("GET /v{apiVersion}/payouts")
+    Response<QueryResult<PayoutModel>> queryPayouts(@Param("apiVersion") String apiVersion, @QueryMap QueryPayoutRequest queryPayoutRequest) throws UniPaymentException;
+
+    /**
+     * Get Wallet Balances
+     *
+     * @param apiVersion Api Version
+     * @return {@link Response<List<BalanceModel>>}
+     * @throws UniPaymentException
+     */
+    @RequestLine("GET /v{apiVersion}/wallet/balances")
+    Response<List<BalanceModel>> getWalletBalances(@Param("apiVersion") String apiVersion) throws UniPaymentException;
+
+    /**
+     * Create Withdrawal
+     *
+     * @param apiVersion Api Version
+     * @param request    {@link CreateWithdrawalRequest}
+     * @return {@link Response<WithdrawalModel>}
+     * @throws UniPaymentException
+     */
+    @RequestLine("POST /v{apiVersion}/wallet/withdrawals")
+    Response<WithdrawalModel> createWithdrawal(@Param("apiVersion") String apiVersion, @Param("body") CreateWithdrawalRequest request) throws UniPaymentException;
+
+    /**
+     * Get Withdrawal Id
+     *
+     * @param apiVersion   Api Version
+     * @param withdrawalId Withdrawal Id
+     * @return {@link Response<WithdrawalModel>}
+     * @throws UniPaymentException
+     */
+    @RequestLine("GET /v{apiVersion}/wallet/withdrawals/{withdrawalId}")
+    Response<WithdrawalModel> getWithdrawalById(@Param("apiVersion") String apiVersion, @Param("withdrawalId") String withdrawalId) throws UniPaymentException;
+
+    /**
+     * Cancel Withdrawal
+     *
+     * @param apiVersion Api Version
+     * @param request    {@link CancelWithdrawalRequest}
+     * @return {@link Response<Void>}
+     * @throws UniPaymentException
+     */
+    @RequestLine("POST /v{apiVersion}/wallet/withdrawals")
+    Response<Void> cancelWithdrawal(@Param("apiVersion") String apiVersion, @Param("body") CancelWithdrawalRequest request) throws UniPaymentException;
+
+    /**
+     * Query Withdrawals
+     *
+     * @param apiVersion Api Version
+     * @param request    {@link QueryWithdrawalRequest}
+     * @return {@link Response<QueryResult<WithdrawalModel>>}
+     * @throws UniPaymentException
+     */
+    @RequestLine("GET /v{apiVersion}/wallet/withdrawals")
+    Response<QueryResult<WithdrawalModel>> queryWithdrawals(@Param("apiVersion") String apiVersion, @QueryMap QueryWithdrawalRequest request) throws UniPaymentException;
 
     /**
      * Create a default HTTP Client
