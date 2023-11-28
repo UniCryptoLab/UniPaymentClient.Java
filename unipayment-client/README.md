@@ -57,7 +57,7 @@ CreateInvoiceRequest createInvoiceRequest = CreateInvoiceRequest.builder()
             .notifyURL("https://example.com/notify")
             .title("Test Invoice")
             .description("Test Desc")
-            .lang("en-US")
+            .lang("en")
             .build();
 
 configuration = new Configuration();
