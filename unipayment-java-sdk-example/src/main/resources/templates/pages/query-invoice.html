@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="fragments/header :: header"></head>
+<body>
+<div th:include="fragments/menu :: menu"></div>
+
+<div class="container">
+    <main role="main" class="pb-3">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="text-center">
+                    <h2>Invoice Query Form </h2>
+                </div>
+                <p>&nbsp;</p>
+                <div th:if="${error}">
+                    <div class="alert alert-danger" role="alert">
+                        <div th:text="${msg}"></div>
+                    </div>
+                </div>
+                <div th:if="${success}">
+                    <div class="alert alert-success" role="alert">
+                        Items Count: <span th:text="${resultCount}"></span>
+                    </div>
+                </div>
+                <form method="post" id="queryInvoiceForm" th:action="@{/query-invoice}"
+                      th:object="${queryInvoiceRequestDto}">
+                    <div class="row mb-3">
+                        <label for="apiHost" class="col-sm-2 col-form-label">Api Host</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="apiHost" placeholder="API Host" name="apiHost"
+                                   th:value="${apiHost}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="appId" class="col-sm-2 col-form-label">App ID</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="appId" placeholder="APP ID" name="appId"
+                                   th:value="${appId}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="apiKey" class="col-sm-2 col-form-label">Api Key</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="apiKey" placeholder="API Key" name="apiKey"
+                                   th:value="${apiKey}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="invoiceId" class="col-sm-2 col-form-label">Invoice ID</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="invoiceId" placeholder="Invoice ID"
+                                   name="invoiceId" th:field="*{invoiceId}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="orderId" class="col-sm-2 col-form-label">Order ID</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="orderId" placeholder="Order ID" name="orderId"
+                                   th:field="*{orderId}">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="status" class="col-sm-2 col-form-label">Status</label>
+                        <div class="col-lg-10">
+                            <select class="custom-select" name="status" id="status" th:field="*{status}">
+                                <option value="">None</option>
+                                <option value="new">New</option>
+                                <option value="paid">Paid</option>
+                                <option value="confirmed">Confirmed</option>
+                                <option value="completed">Complete</option>
+                                <option value="expired">Expired</option>
+                                <option value="invalid">Invalid</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="start" class="col-sm-2 col-form-label">Start Date / Time</label>
+                        <div class="col-lg-10">
+                            <input class="form-control" name="start" id="start" type="datetime-local"
+                                   th:field="*{start}"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="end" class="col-sm-2 col-form-label">End Date / Time</label>
+                        <div class="col-lg-10">
+                            <input class="form-control" name="end" id="end" type="datetime-local" th:field="*{end}"/>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="isAsc" class="col-sm-2 col-form-label">Is Ascending</label>
+                        <div class="col-lg-10">
+                            <select class="custom-select" name="isAsc" id="isAsc" th:field="*{isAsc}">
+                                <option value="true">True</option>
+                                <option value="false">False</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row text-right">
+                        <div class="col-sm-10 offset-sm-2">
+                            <button type="submit" class="btn btn-primary">Query Invoice</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-sm table-condensed table-striped table-hover" id="query-result-table"
+                   style="font-size: 14px">
+                <thead>
+                <tr>
+                    <th scope="col">Invoice Id</th>
+                    <th scope="col">Order Id</th>
+                    <th scope="col">Price Amount</th>
+                    <th scope="col">Price Currency</th>
+                    <th scope="col">Pay Amount</th>
+                    <th scope="col">Pay Currency</th>
+                    <th scope="col">Paid Amount</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Invoice Url</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="obj: ${queryResult}">
+                    <tr>
+                        <td th:text="${obj.invoiceId}"></td>
+                        <td th:text="${obj.orderId}"></td>
+                        <td th:text="${obj.priceAmount}"></td>
+                        <td th:text="${obj.priceCurrency}"></td>
+                        <td th:text="${obj.payAmount}"></td>
+                        <td th:text="${obj.payCurrency}"></td>
+                        <td th:text="${obj.paidAmount}"></td>
+                        <td th:text="${obj.status}"></td>
+                        <td><a th:href="${obj.invoiceUrl}">CheckOut</a></td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div th:include="fragments/footer :: footer"></div>
+</body>
+</html>
