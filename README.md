@@ -22,7 +22,20 @@ integration. [Documentation](https://help.unipayment.io/en/articles/8263248-how-
 
 1. Download the package and extract it into a local directory or clone the repo.
 2. Copy unipayment-java-sdk.
-3.
+3. Build the project using maven
+```sh
+cd <project_directory>//UniPaymentClient.Java
+mvn clean install
+```
+
+4. To use the SDK in your project you will need to add the dependencies to your maven pom.xml file
+```xml
+<dependency>
+    <groupId>io.unipayment</groupId>
+    <artifactId>unipayment-java-sdk</artifactId>
+    <version>2.0.0</version>
+</dependency>
+```
 
 ## UniPayment SDK Configuration
 
