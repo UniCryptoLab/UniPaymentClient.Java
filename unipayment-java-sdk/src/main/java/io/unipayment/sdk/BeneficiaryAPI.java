@@ -11,7 +11,7 @@ import io.unipayment.sdk.model.*;
 import java.util.List;
 
 @Headers({"Content-Type: application/json", "Accept: application/json", "Authorization: Bearer {accessToken}"})
-public interface BeneficiariesAPI {
+public interface BeneficiaryAPI {
 
     /**
      * Create a new beneficiary.
@@ -79,8 +79,8 @@ public interface BeneficiariesAPI {
      *
      * @return Instance of Beneficiaries API
      */
-    static BeneficiariesAPI getInstance() {
-        return new UnipaymentDefaultClient<BeneficiariesAPI>().getDefaultClient(BeneficiariesAPI.class);
+    static BeneficiaryAPI getInstance() {
+        return new UnipaymentDefaultClient<BeneficiaryAPI>().getDefaultClient(BeneficiaryAPI.class);
     }
 
     /**
@@ -89,7 +89,7 @@ public interface BeneficiariesAPI {
      * @param configuration {@link Configuration}
      * @return Instance of Beneficiaries API
      */
-    static BeneficiariesAPI getInstance(Configuration configuration) {
-        return new UnipaymentDefaultClient<BeneficiariesAPI>().getClient(BeneficiariesAPI.class, configuration);
+    static BeneficiaryAPI getInstance(Configuration configuration) {
+        return new UnipaymentDefaultClient<BeneficiaryAPI>().getClient(BeneficiaryAPI.class, configuration);
     }
 }

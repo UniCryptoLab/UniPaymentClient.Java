@@ -11,7 +11,7 @@ public class QueryWalletTransactionsRequest extends TreeMap<String, Object> {
     private String id;
     private TransactionType transactionType;
     private int pageNo = 1;
-    private int pageSize = 10;
+    private int pageSize = 20;
     private Boolean isAsc;
 
     public QueryWalletTransactionsRequest() {

@@ -11,7 +11,7 @@ import io.unipayment.sdk.model.*;
 import java.util.List;
 
 @Headers({"Content-Type: application/json", "Accept: application/json", "Authorization: Bearer {accessToken}"})
-public interface DepositAndPaymentAPI {
+public interface PaymentAPI {
 
     /**
      * Create Payment
@@ -54,8 +54,8 @@ public interface DepositAndPaymentAPI {
      *
      * @return Instance of Deposit And Payment API
      */
-    static DepositAndPaymentAPI getInstance() {
-        return new UnipaymentDefaultClient<DepositAndPaymentAPI>().getDefaultClient(DepositAndPaymentAPI.class);
+    static PaymentAPI getInstance() {
+        return new UnipaymentDefaultClient<PaymentAPI>().getDefaultClient(PaymentAPI.class);
     }
 
     /**
@@ -64,7 +64,7 @@ public interface DepositAndPaymentAPI {
      * @param configuration {@link Configuration}
      * @return Instance of Deposit And Payment API
      */
-    static DepositAndPaymentAPI getInstance(Configuration configuration) {
-        return new UnipaymentDefaultClient<DepositAndPaymentAPI>().getClient(DepositAndPaymentAPI.class, configuration);
+    static PaymentAPI getInstance(Configuration configuration) {
+        return new UnipaymentDefaultClient<PaymentAPI>().getClient(PaymentAPI.class, configuration);
     }
 }

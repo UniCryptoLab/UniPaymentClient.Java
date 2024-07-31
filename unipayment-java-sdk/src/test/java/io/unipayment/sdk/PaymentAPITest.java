@@ -11,14 +11,14 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DepositAndPaymentAPITest extends BaseAPITest {
+public class PaymentAPITest extends BaseAPITest {
 
-    private static DepositAndPaymentAPI depositAndPaymentAPI;
+    private static PaymentAPI paymentAPI;
     private static String paymentId;
 
     @BeforeAll
     public static void setUp() {
-        depositAndPaymentAPI = DepositAndPaymentAPI.getInstance(configuration);
+        paymentAPI = PaymentAPI.getInstance(configuration);
     }
 
     @Test
@@ -26,7 +26,7 @@ public class DepositAndPaymentAPITest extends BaseAPITest {
     public void testGetPaymentFee() {
         QueryPaymentFeeRequest queryPaymentFeeRequest = new QueryPaymentFeeRequest();
         queryPaymentFeeRequest.setAssetType("USDT");
-        ApiResponse<List<PaymentFee>> apiResponse = depositAndPaymentAPI.getPaymentFee(getAccessToken(), queryPaymentFeeRequest);
+        ApiResponse<List<PaymentFee>> apiResponse = paymentAPI.getPaymentFee(getAccessToken(), queryPaymentFeeRequest);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
@@ -40,14 +40,14 @@ public class DepositAndPaymentAPITest extends BaseAPITest {
     @Order(3)
     public void testQueryPayments() {
         QueryPaymentRequest queryPaymentFeeRequest = new QueryPaymentRequest();
-        ApiResponse<QueryResult<Payment>> apiResponse = depositAndPaymentAPI.queryPayments(getAccessToken(), queryPaymentFeeRequest);
+        ApiResponse<QueryResult<Payment>> apiResponse = paymentAPI.queryPayments(getAccessToken(), queryPaymentFeeRequest);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
     @Test
     @Order(4)
     public void testGetPaymentById() {
-        ApiResponse<Payment> apiResponse = depositAndPaymentAPI.getPaymentById(getAccessToken(), paymentId);
+        ApiResponse<Payment> apiResponse = paymentAPI.getPaymentById(getAccessToken(), paymentId);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
@@ -55,7 +55,7 @@ public class DepositAndPaymentAPITest extends BaseAPITest {
     @Order(5)
     public void testConfirmPayment() {
         PaymentNote paymentNote = PaymentNote.builder().note("Payment Confirmed").build();
-        ApiResponse<Void> apiResponse = depositAndPaymentAPI.cancelPayment(getAccessToken(), paymentId, paymentNote);
+        ApiResponse<Void> apiResponse = paymentAPI.cancelPayment(getAccessToken(), paymentId, paymentNote);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
@@ -64,21 +64,21 @@ public class DepositAndPaymentAPITest extends BaseAPITest {
     public void testCancelPayment() {
         createPayment();
         PaymentNote paymentNote = PaymentNote.builder().note("Payment Cancelled").build();
-        ApiResponse<Void> apiResponse = depositAndPaymentAPI.cancelPayment(getAccessToken(), paymentId, paymentNote);
+        ApiResponse<Void> apiResponse = paymentAPI.cancelPayment(getAccessToken(), paymentId, paymentNote);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
     private void createPayment() {
         CreatePaymentRequest createPaymentRequest = CreatePaymentRequest.builder()
-                .fromAccountId("2c7b5891-637a-49af-a0bc-00f41815269c")
-                .toAccountId("bc8263b8-c3ca-48e0-b9ed-f1403c5e8575")
-                .assetType("BTC")
-                .paymentMethodId("cff91813-b4f0-4c6d-8f16-4094ad9f920e")
-                .amount(0.001)
+                .fromAccountId("d7c5db2e-8572-4a2f-9300-84dc4b3fd052")
+                .toAccountId("f0b4083b-8b43-4267-a321-f96bdba8c9e4")
+                .assetType("USDT")
+                .paymentMethodId("5c0bce95-7d10-47f3-8e11-250ab900da07")
+                .amount(10.000)
                 .reason(PaymentReason.InternalTransfer)
                 .uniqueId(UUID.randomUUID().toString())
                 .build();
-        ApiResponse<Payment> apiResponse = depositAndPaymentAPI.createPayment(getAccessToken(), createPaymentRequest);
+        ApiResponse<Payment> apiResponse = paymentAPI.createPayment(getAccessToken(), createPaymentRequest);
         assertEquals(apiResponse.getCode(), "OK");
         paymentId = apiResponse.getData().getId();
     }

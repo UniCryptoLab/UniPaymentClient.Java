@@ -33,5 +33,4 @@ public class Payment {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @JsonProperty("update_time")
     private Date updateTime;
-
 }

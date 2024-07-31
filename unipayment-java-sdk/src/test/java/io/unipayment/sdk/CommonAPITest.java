@@ -3,6 +3,7 @@ package io.unipayment.sdk;
 import io.unipayment.sdk.model.ApiResponse;
 import io.unipayment.sdk.model.Currency;
 import io.unipayment.sdk.model.ExchangeRate;
+import io.unipayment.sdk.model.PingResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +18,18 @@ public class CommonAPITest extends BaseAPITest {
     @BeforeAll
     public static void setUp() {
         commonAPI = CommonAPI.getInstance(configuration);
+    }
+
+    @Test
+    public void testGetPing() {
+        PingResponse response = commonAPI.getPing(getAccessToken());
+        assertEquals(response.getMsg(), "pong");
+    }
+
+    @Test
+    public void testPostPing() {
+        PingResponse response = commonAPI.postPing(getAccessToken());
+        assertEquals(response.getMsg(), "pong");
     }
 
     @Test

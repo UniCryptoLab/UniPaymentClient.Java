@@ -14,16 +14,16 @@ import java.util.List;
 public interface WalletAPI {
 
     /**
-     * Get Wallet Balances
+     * Get Balances
      */
     @RequestLine("GET /wallet/balances")
-    ApiResponse<List<WalletBalance>> getWalletBalances(@Param("accessToken") String accessToken) throws UnipaymentSdkException;
+    ApiResponse<List<WalletBalance>> getBalances(@Param("accessToken") String accessToken) throws UnipaymentSdkException;
 
     /**
-     * Get Wallet Accounts
+     * Get Accounts
      */
     @RequestLine("GET /wallet/accounts")
-    ApiResponse<List<WalletAccount>> getWalletAccounts(@Param("accessToken") String accessToken) throws UnipaymentSdkException;
+    ApiResponse<List<WalletAccount>> getAccounts(@Param("accessToken") String accessToken) throws UnipaymentSdkException;
 
     /**
      * Query Transactions for Wallet Account's ID
@@ -35,43 +35,13 @@ public interface WalletAPI {
      * Get Deposit Address
      */
     @RequestLine("GET /wallet/accounts/{id}/deposit/address")
-    ApiResponse<List<WalletAccount>> getDepositAddress(@Param("accessToken") String accessToken, @Param("id") String accountId) throws UnipaymentSdkException;
+    ApiResponse<List<DepositAddress>> getDepositAddress(@Param("accessToken") String accessToken, @Param("id") String accountId) throws UnipaymentSdkException;
 
     /**
      * Get Deposit Bank Account
      */
     @RequestLine("GET /wallet/accounts/{id}/deposit/bank-account")
-    ApiResponse<List<WalletAccount>> getDepositBankAccount(@Param("accessToken") String accessToken, @Param("id") String accountId) throws UnipaymentSdkException;
-
-    /**
-     * Create Withdrawal
-     */
-    @RequestLine("POST /wallet/withdrawals")
-    ApiResponse<Withdrawal> createWithdrawal(@Param("accessToken") String accessToken, CreateWithdrawalRequest request) throws UnipaymentSdkException;
-
-    /**
-     * Get Withdrawal By Id
-     */
-    @RequestLine("GET /wallet/withdrawals/{withdrawalId}")
-    ApiResponse<Withdrawal> getWithdrawalById(@Param("accessToken") String accessToken, @Param("withdrawalId") String withdrawalId) throws UnipaymentSdkException;
-
-    /**
-     * Cancel Withdrawal
-     */
-    @RequestLine("POST /wallet/withdrawals")
-    ApiResponse<Void> cancelWithdrawal(@Param("accessToken") String accessToken, CancelWithdrawalRequest request) throws UnipaymentSdkException;
-
-    /**
-     * Query Withdrawals
-     */
-    @RequestLine("GET /wallet/withdrawals")
-    ApiResponse<QueryResult<Withdrawal>> queryWithdrawals(@Param("accessToken") String accessToken, @QueryMap QueryWithdrawalRequest request) throws UnipaymentSdkException;
-
-    /**
-     * Get Withdrawal Fees
-     */
-    @RequestLine("GET /wallet/withdrawal-fees/{assetType}")
-    ApiResponse<List<WithdrawalFee>> getWithdrawalFees(@Param("accessToken") String accessToken, @Param("assetType") String assetType) throws UnipaymentSdkException;
+    ApiResponse<List<DepositBankAccount>> getDepositBankAccount(@Param("accessToken") String accessToken, @Param("id") String accountId) throws UnipaymentSdkException;
 
     /**
      * Create Default Client

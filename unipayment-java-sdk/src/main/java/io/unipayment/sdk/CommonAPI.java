@@ -9,11 +9,24 @@ import io.unipayment.sdk.exception.UnipaymentSdkException;
 import io.unipayment.sdk.model.ApiResponse;
 import io.unipayment.sdk.model.Currency;
 import io.unipayment.sdk.model.ExchangeRate;
+import io.unipayment.sdk.model.PingResponse;
 
 import java.util.List;
 
 @Headers({"Content-Type: application/json", "Accept: application/json", "Authorization: Bearer {accessToken}"})
 public interface CommonAPI {
+
+    /**
+     * Ping API
+     */
+    @RequestLine("GET /ping")
+    PingResponse getPing(@Param("accessToken") String accessToken) throws UnipaymentSdkException;
+
+    /**
+     * Ping API
+     */
+    @RequestLine("POST /ping")
+    PingResponse postPing(@Param("accessToken") String accessToken) throws UnipaymentSdkException;
 
     /**
      * Query Ips

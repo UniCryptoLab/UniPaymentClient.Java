@@ -16,6 +16,10 @@ import java.io.IOException;
 
 public final class PaymentDetailJsonDeserializer extends StdDeserializer<PaymentMethodDetail> {
 
+    public PaymentDetailJsonDeserializer() {
+        this(null);
+    }
+
     public PaymentDetailJsonDeserializer(Class<?> vc) {
         super(vc);
     }
