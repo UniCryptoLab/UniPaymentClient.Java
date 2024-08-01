@@ -2,6 +2,7 @@ package io.unipayment.sdk.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.unipayment.sdk.model.enums.PaymentStatus;
 import lombok.Data;
 
 import java.util.Date;
@@ -26,7 +27,7 @@ public class Payment {
     private String reference;
     private String reason;
     private String note;
-    private String status;
+    private PaymentStatus status;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     @JsonProperty("create_time")
     private Date createTime;

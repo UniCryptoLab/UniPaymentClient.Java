@@ -13,7 +13,6 @@ public class ExchangeAPITest extends BaseAPITest {
 
     private static ExchangeAPI exchangeAPI;
     private static String quoteId;
-    private static String exchangeOrderId;
 
     @BeforeAll
     public static void setUp() {
@@ -34,11 +33,9 @@ public class ExchangeAPITest extends BaseAPITest {
 
     @Test
     @Order(2)
-    @Disabled
     public void testAcceptQuoteById() {
         ApiResponse<ExchangeOrder> apiResponse = exchangeAPI.acceptQuote(getAccessToken(), quoteId);
         assertEquals(apiResponse.getCode(), "OK");
-        exchangeOrderId = apiResponse.getData().getId();
     }
 
     @Test
@@ -46,7 +43,6 @@ public class ExchangeAPITest extends BaseAPITest {
     public void testQueryExchangeOrders() {
         ApiResponse<QueryResult<ExchangeOrder>> apiResponse = exchangeAPI.queryExchangeOrders(getAccessToken(), new QueryExchangeOrderRequest());
         assertEquals(apiResponse.getCode(), "OK");
-        exchangeOrderId = apiResponse.getData().getModels().stream().filter(d -> ExchangeOrderStatus.COMPLETED.equals(d.getStatus())).findFirst().get().getId();
     }
 
     @Test
