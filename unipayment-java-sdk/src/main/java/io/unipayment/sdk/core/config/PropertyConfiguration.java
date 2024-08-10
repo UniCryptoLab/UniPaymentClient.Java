@@ -1,10 +1,10 @@
 package io.unipayment.sdk.core.config;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Properties;
-
-import org.apache.commons.io.FileUtils;
 
 /**
  * Property Configuration - This class is used to load Unipayment configurations from properties;

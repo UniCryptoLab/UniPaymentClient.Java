@@ -1,13 +1,11 @@
 package io.unipayment.sdk;
 
-import io.unipayment.sdk.model.ApiResponse;
-import io.unipayment.sdk.model.Invoice;
+import io.unipayment.sdk.model.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import io.unipayment.sdk.model.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BillingAPITest extends BaseAPITest {
 
@@ -32,7 +30,7 @@ public class BillingAPITest extends BaseAPITest {
                 .lang("en")
                 .extArgs("Merchant Pass Through Data")
                 .build();
-        ApiResponse<Invoice> apiResponse = billingAPI.createInvoice(getAccessToken(), createInvoiceRequest);
+        ApiResponse<Invoice> apiResponse = billingAPI.createInvoice(createInvoiceRequest);
         assertEquals(apiResponse.getCode(), "OK");
         invoiceId = apiResponse.getData().getInvoiceId();
     }
@@ -42,14 +40,14 @@ public class BillingAPITest extends BaseAPITest {
     public void testQueryInvoicesByOrderId() {
         QueryInvoiceRequest queryInvoiceRequest = new QueryInvoiceRequest();
         queryInvoiceRequest.setOrderId(orderId);
-        ApiResponse<QueryResult<Invoice>> apiResponse = billingAPI.queryInvoices(getAccessToken(), queryInvoiceRequest);
+        ApiResponse<QueryResult<Invoice>> apiResponse = billingAPI.queryInvoices(queryInvoiceRequest);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
     @Test
     @Order(3)
     public void testQueryInvoiceById() {
-        ApiResponse<InvoiceDetail> apiResponse = billingAPI.queryInvoiceById(getAccessToken(), invoiceId);
+        ApiResponse<InvoiceDetail> apiResponse = billingAPI.queryInvoiceById(invoiceId);
         assertEquals(apiResponse.getCode(), "OK");
     }
 }

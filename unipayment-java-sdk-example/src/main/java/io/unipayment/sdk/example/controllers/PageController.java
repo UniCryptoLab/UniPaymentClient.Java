@@ -1,7 +1,6 @@
 package io.unipayment.sdk.example.controllers;
 
 import io.unipayment.sdk.BillingAPI;
-import io.unipayment.sdk.OauthTokenAPI;
 import io.unipayment.sdk.core.config.Configuration;
 import io.unipayment.sdk.example.dto.CreateInvoiceRequestDto;
 import io.unipayment.sdk.example.dto.QueryInvoiceRequestDto;
@@ -25,12 +24,10 @@ import java.util.Objects;
 public class PageController {
 
     private final BillingAPI billingAPI;
-    private final OauthTokenAPI oauthTokenAPI;
     private final Configuration configuration;
 
     public PageController(Configuration configuration) {
         this.billingAPI = BillingAPI.getInstance(configuration);
-        this.oauthTokenAPI = OauthTokenAPI.getInstance(configuration);
         this.configuration = configuration;
     }
 
@@ -80,8 +77,7 @@ public class PageController {
 
         ApiResponse<Invoice> response;
         try {
-            TokenResponse tokenResponse = oauthTokenAPI.getToken(new TokenRequest(configuration.getClientId(), configuration.getClientSecret()));
-            response = billingAPI.createInvoice(tokenResponse.getAccessToken(), createInvoiceRequest);
+            response = billingAPI.createInvoice(createInvoiceRequest);
             if ("OK".equalsIgnoreCase(response.getCode()) && response.getData() != null) {
                 return "redirect:" + response.getData().getInvoiceUrl();
             } else {
@@ -117,8 +113,7 @@ public class PageController {
         QueryInvoiceRequest queryInvoiceRequest = getQueryInvoiceRequest(queryInvoiceRequestDto);
         ApiResponse<QueryResult<Invoice>> response;
         try {
-            TokenResponse tokenResponse = oauthTokenAPI.getToken(new TokenRequest(configuration.getClientId(), configuration.getClientSecret()));
-            response = billingAPI.queryInvoices(tokenResponse.getAccessToken(), queryInvoiceRequest);
+            response = billingAPI.queryInvoices(queryInvoiceRequest);
             if ("OK".equalsIgnoreCase(response.getCode())) {
                 model.addAttribute("success", true);
                 model.addAttribute("queryResult", response.getData().getModels());

@@ -9,7 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class CommonAPITest extends BaseAPITest {
 
@@ -22,45 +23,45 @@ public class CommonAPITest extends BaseAPITest {
 
     @Test
     public void testGetPing() {
-        PingResponse response = commonAPI.getPing(getAccessToken());
+        PingResponse response = commonAPI.getPing();
         assertEquals(response.getMsg(), "pong");
     }
 
     @Test
     public void testPostPing() {
-        PingResponse response = commonAPI.postPing(getAccessToken());
+        PingResponse response = commonAPI.postPing();
         assertEquals(response.getMsg(), "pong");
     }
 
     @Test
     public void testQueryIps() {
-        ApiResponse<List<String>> apiResponse = commonAPI.queryIps(getAccessToken());
+        ApiResponse<List<String>> apiResponse = commonAPI.queryIps();
         assertEquals(apiResponse.getCode(), "OK");
     }
 
     @Test
     public void testGetCurrencies() {
-        ApiResponse<List<Currency>> apiResponse = commonAPI.getCurrencies(getAccessToken());
+        ApiResponse<List<Currency>> apiResponse = commonAPI.getCurrencies();
         assertEquals(apiResponse.getCode(), "OK");
         assertFalse(apiResponse.getData().isEmpty());
     }
 
     @Test
     public void testGetExchangeRateByCurrencyPair() {
-        ApiResponse<ExchangeRate> apiResponse = commonAPI.getExchangeRateByCurrencyPair(getAccessToken(), "USD", "BTC");
+        ApiResponse<ExchangeRate> apiResponse = commonAPI.getExchangeRateByCurrencyPair("USD", "BTC");
         assertEquals(apiResponse.getCode(), "OK");
     }
 
     @Test
     public void testGetExchangeRateByFiatCurrency() {
-        ApiResponse<List<ExchangeRate>> apiResponse = commonAPI.getExchangeRateByFiatCurrency(getAccessToken(), "USD");
+        ApiResponse<List<ExchangeRate>> apiResponse = commonAPI.getExchangeRateByFiatCurrency("USD");
         assertEquals(apiResponse.getCode(), "OK");
         assertFalse(apiResponse.getData().isEmpty());
     }
 
     @Test
     public void testCheckIPN() {
-        ApiResponse<Void> apiResponse = commonAPI.checkIPN(getAccessToken(), "{\"ipn_type\":\"invoice\",\"event\":\"invoice_created\",\"app_id\":\"cee1b9e2-d90c-4b63-9824-d621edb38012\",\"invoice_id\":\"12wQquUmeCPUx3qmp3aHnd\",\"order_id\":\"ORDER_123456\",\"price_amount\":2.0,\"price_currency\":\"USD\",\"network\":null,\"address\":null,\"pay_currency\":null,\"pay_amount\":0.0,\"exchange_rate\":0.0,\"paid_amount\":0.0,\"confirmed_amount\":0.0,\"refunded_price_amount\":0.0,\"create_time\":\"2022-09-14T04:57:54.5599307Z\",\"expiration_time\":\"2022-09-14T05:02:54.559933Z\",\"status\":\"New\",\"error_status\":\"None\",\"ext_args\":\"Merchant Pass Through Data\",\"transactions\":null,\"notify_id\":\"fd58cedd-67c6-4053-ae65-2f6fb09a7d2c\",\"notify_time\":\"0001-01-01T00:00:00\"}");
+        ApiResponse<Void> apiResponse = commonAPI.checkIPN("{\"ipn_type\":\"invoice\",\"event\":\"invoice_created\",\"app_id\":\"cee1b9e2-d90c-4b63-9824-d621edb38012\",\"invoice_id\":\"12wQquUmeCPUx3qmp3aHnd\",\"order_id\":\"ORDER_123456\",\"price_amount\":2.0,\"price_currency\":\"USD\",\"network\":null,\"address\":null,\"pay_currency\":null,\"pay_amount\":0.0,\"exchange_rate\":0.0,\"paid_amount\":0.0,\"confirmed_amount\":0.0,\"refunded_price_amount\":0.0,\"create_time\":\"2022-09-14T04:57:54.5599307Z\",\"expiration_time\":\"2022-09-14T05:02:54.559933Z\",\"status\":\"New\",\"error_status\":\"None\",\"ext_args\":\"Merchant Pass Through Data\",\"transactions\":null,\"notify_id\":\"fd58cedd-67c6-4053-ae65-2f6fb09a7d2c\",\"notify_time\":\"0001-01-01T00:00:00\"}");
         assertEquals(apiResponse.getCode(), "OK");
         assertEquals(apiResponse.getMsg(), "IPN is verified.");
     }

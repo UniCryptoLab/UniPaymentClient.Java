@@ -5,7 +5,10 @@ import feign.codec.EncodeException;
 import feign.jackson.JacksonEncoder;
 import io.unipayment.sdk.core.Constants;
 import io.unipayment.sdk.exception.UnipaymentSdkException;
-import jakarta.validation.*;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 
 import java.lang.reflect.Type;
 import java.util.Set;

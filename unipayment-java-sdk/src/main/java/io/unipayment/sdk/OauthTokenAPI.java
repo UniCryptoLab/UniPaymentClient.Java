@@ -14,7 +14,7 @@ import io.unipayment.sdk.model.TokenRequest;
 import io.unipayment.sdk.model.TokenResponse;
 
 @Headers({"Content-Type: application/x-www-form-urlencoded", "Accept: application/json"})
-public interface OauthTokenAPI {
+interface OauthTokenAPI {
 
     /**
      * Get Token

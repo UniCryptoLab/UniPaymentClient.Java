@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PaymentAPITest extends BaseAPITest {
 
@@ -26,7 +26,7 @@ public class PaymentAPITest extends BaseAPITest {
     public void testGetPaymentFee() {
         QueryPaymentFeeRequest queryPaymentFeeRequest = new QueryPaymentFeeRequest();
         queryPaymentFeeRequest.setAssetType("USDT");
-        ApiResponse<List<PaymentFee>> apiResponse = paymentAPI.getPaymentFee(getAccessToken(), queryPaymentFeeRequest);
+        ApiResponse<List<PaymentFee>> apiResponse = paymentAPI.getPaymentFee(queryPaymentFeeRequest);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
@@ -40,14 +40,14 @@ public class PaymentAPITest extends BaseAPITest {
     @Order(3)
     public void testQueryPayments() {
         QueryPaymentRequest queryPaymentFeeRequest = new QueryPaymentRequest();
-        ApiResponse<QueryResult<Payment>> apiResponse = paymentAPI.queryPayments(getAccessToken(), queryPaymentFeeRequest);
+        ApiResponse<QueryResult<Payment>> apiResponse = paymentAPI.queryPayments(queryPaymentFeeRequest);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
     @Test
     @Order(4)
     public void testGetPaymentById() {
-        ApiResponse<Payment> apiResponse = paymentAPI.getPaymentById(getAccessToken(), paymentId);
+        ApiResponse<Payment> apiResponse = paymentAPI.getPaymentById(paymentId);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
@@ -55,7 +55,7 @@ public class PaymentAPITest extends BaseAPITest {
     @Order(5)
     public void testConfirmPayment() {
         PaymentNote paymentNote = PaymentNote.builder().note("Payment Confirmed").build();
-        ApiResponse<Void> apiResponse = paymentAPI.cancelPayment(getAccessToken(), paymentId, paymentNote);
+        ApiResponse<Void> apiResponse = paymentAPI.cancelPayment(paymentId, paymentNote);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
@@ -64,7 +64,7 @@ public class PaymentAPITest extends BaseAPITest {
     public void testCancelPayment() {
         createPayment();
         PaymentNote paymentNote = PaymentNote.builder().note("Payment Cancelled").build();
-        ApiResponse<Void> apiResponse = paymentAPI.cancelPayment(getAccessToken(), paymentId, paymentNote);
+        ApiResponse<Void> apiResponse = paymentAPI.cancelPayment(paymentId, paymentNote);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
@@ -78,7 +78,7 @@ public class PaymentAPITest extends BaseAPITest {
                 .reason(PaymentReason.InternalTransfer)
                 .uniqueId(UUID.randomUUID().toString())
                 .build();
-        ApiResponse<Payment> apiResponse = paymentAPI.createPayment(getAccessToken(), createPaymentRequest);
+        ApiResponse<Payment> apiResponse = paymentAPI.createPayment(createPaymentRequest);
         assertEquals(apiResponse.getCode(), "OK");
         paymentId = apiResponse.getData().getId();
     }

@@ -15,19 +15,19 @@ public interface BillingAPI {
      * Create Invoice
      */
     @RequestLine("POST /invoices")
-    ApiResponse<Invoice> createInvoice(@Param("accessToken") String accessToken, CreateInvoiceRequest createInvoiceRequest) throws UnipaymentSdkException;
+    ApiResponse<Invoice> createInvoice(CreateInvoiceRequest createInvoiceRequest) throws UnipaymentSdkException;
 
     /**
      * Query Invoices
      */
     @RequestLine("GET /invoices")
-    ApiResponse<QueryResult<Invoice>> queryInvoices(@Param("accessToken") String accessToken, @QueryMap QueryInvoiceRequest queryInvoiceRequest) throws UnipaymentSdkException;
+    ApiResponse<QueryResult<Invoice>> queryInvoices(@QueryMap QueryInvoiceRequest queryInvoiceRequest) throws UnipaymentSdkException;
 
     /**
      * Query Invoice By Id
      */
     @RequestLine("GET /invoices/{invoiceId}")
-    ApiResponse<InvoiceDetail> queryInvoiceById(@Param("accessToken") String accessToken, @Param("invoiceId") String invoiceId) throws UnipaymentSdkException;
+    ApiResponse<InvoiceDetail> queryInvoiceById(@Param("invoiceId") String invoiceId) throws UnipaymentSdkException;
 
     /**
      * Create Default Client

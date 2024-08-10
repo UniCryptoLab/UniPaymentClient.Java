@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.lang3.SystemUtils;
 
 public final class Constants {
+    public static final String AUTHORIZATON = "Authorization";
     public static final String USER_AGENT = "User-Agent";
     public static final String X_REQUEST_ID = "x-request-id";
     private static final String UNIPAYMENT_JAVA_SDK = "unipayment_java_sdk";

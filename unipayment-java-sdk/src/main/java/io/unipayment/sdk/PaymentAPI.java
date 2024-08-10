@@ -17,37 +17,37 @@ public interface PaymentAPI {
      * Create Payment
      */
     @RequestLine("POST /payments")
-    ApiResponse<Payment> createPayment(@Param("accessToken") String accessToken, CreatePaymentRequest createPaymentRequest) throws UnipaymentSdkException;
+    ApiResponse<Payment> createPayment(CreatePaymentRequest createPaymentRequest) throws UnipaymentSdkException;
 
     /**
      * Get Payment By ID
      */
     @RequestLine("GET /payments/{id}")
-    ApiResponse<Payment> getPaymentById(@Param("accessToken") String accessToken, @Param("id") String paymentId) throws UnipaymentSdkException;
+    ApiResponse<Payment> getPaymentById(@Param("id") String paymentId) throws UnipaymentSdkException;
 
     /**
      * Query Payment
      */
     @RequestLine("GET /payments")
-    ApiResponse<QueryResult<Payment>> queryPayments(@Param("accessToken") String accessToken, @QueryMap QueryPaymentRequest queryPaymentRequest) throws UnipaymentSdkException;
+    ApiResponse<QueryResult<Payment>> queryPayments(@QueryMap QueryPaymentRequest queryPaymentRequest) throws UnipaymentSdkException;
 
     /**
-     * Query Payment
+     * Cancel Payment
      */
     @RequestLine("PUT /payments/{id}/cancel")
-    ApiResponse<Void> cancelPayment(@Param("accessToken") String accessToken, @Param("id") String paymentId, PaymentNote paymentNote) throws UnipaymentSdkException;
+    ApiResponse<Void> cancelPayment(@Param("id") String paymentId, PaymentNote paymentNote) throws UnipaymentSdkException;
 
     /**
-     * Query Payment
+     * Confirm Payment
      */
     @RequestLine("PUT /payments/{id}/confirm")
-    ApiResponse<Void> confirmPayment(@Param("accessToken") String accessToken, @Param("id") String paymentId, PaymentNote paymentNote) throws UnipaymentSdkException;
+    ApiResponse<Void> confirmPayment(@Param("id") String paymentId, PaymentNote paymentNote) throws UnipaymentSdkException;
 
     /**
      * Get Payment Fee
      */
     @RequestLine("GET /payments/fee")
-    ApiResponse<List<PaymentFee>> getPaymentFee(@Param("accessToken") String accessToken, @QueryMap QueryPaymentFeeRequest queryPaymentFeeRequest) throws UnipaymentSdkException;
+    ApiResponse<List<PaymentFee>> getPaymentFee(@QueryMap QueryPaymentFeeRequest queryPaymentFeeRequest) throws UnipaymentSdkException;
 
     /**
      * Create Default Client

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class OauthRequestInterceptorTest {
@@ -17,7 +17,7 @@ public class OauthRequestInterceptorTest {
     @BeforeAll
     public static void setUp() {
         requestTemplate = new RequestTemplate();
-        oauthRequestInterceptor = new OauthRequestInterceptor();
+        oauthRequestInterceptor = new OauthRequestInterceptor(null);
     }
 
     @Test

@@ -11,7 +11,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BeneficiaryAPITest extends BaseAPITest {
 
@@ -33,7 +34,7 @@ public class BeneficiaryAPITest extends BaseAPITest {
                 .type(BeneficiaryType.INDIVIDUAL)
                 .relationship(Relationship.CUSTOMER)
                 .build();
-        ApiResponse<Beneficiary> apiResponse = beneficiaryAPI.createBeneficiary(getAccessToken(), beneficiary);
+        ApiResponse<Beneficiary> apiResponse = beneficiaryAPI.createBeneficiary(beneficiary);
         assertEquals(apiResponse.getCode(), "OK");
         beneficiaryId = apiResponse.getData().getId();
     }
@@ -41,21 +42,21 @@ public class BeneficiaryAPITest extends BaseAPITest {
     @Test
     @Order(2)
     public void testQueryBeneficiaries() {
-        ApiResponse<QueryResult<Beneficiary>> apiResponse = beneficiaryAPI.queryBeneficiaries(getAccessToken(), new QueryBeneficiaryRequest());
+        ApiResponse<QueryResult<Beneficiary>> apiResponse = beneficiaryAPI.queryBeneficiaries(new QueryBeneficiaryRequest());
         assertEquals(apiResponse.getCode(), "OK");
     }
 
     @Test
     @Order(3)
     public void testGetBeneficiaryById() {
-        ApiResponse<Beneficiary> apiResponse = beneficiaryAPI.getBeneficiaryById(getAccessToken(), beneficiaryId);
+        ApiResponse<Beneficiary> apiResponse = beneficiaryAPI.getBeneficiaryById(beneficiaryId);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
     @Test
     @Order(4)
     public void testUpdateBeneficiary() {
-        ApiResponse<Beneficiary> apiResponse = beneficiaryAPI.getBeneficiaryById(getAccessToken(), beneficiaryId);
+        ApiResponse<Beneficiary> apiResponse = beneficiaryAPI.getBeneficiaryById(beneficiaryId);
         Beneficiary oldBeneficiary = apiResponse.getData();
         Beneficiary updatedBeneficiary = oldBeneficiary;
         updatedBeneficiary.setAddress("123 Street");
@@ -64,7 +65,7 @@ public class BeneficiaryAPITest extends BaseAPITest {
         updatedBeneficiary.setState("NY");
         updatedBeneficiary.setZipcode("12345");
 
-        apiResponse = beneficiaryAPI.updateBeneficiary(getAccessToken(), beneficiaryId, updatedBeneficiary);
+        apiResponse = beneficiaryAPI.updateBeneficiary(beneficiaryId, updatedBeneficiary);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
@@ -80,7 +81,7 @@ public class BeneficiaryAPITest extends BaseAPITest {
                 .transferMethod(TransferMethod.CRYPTO)
                 .detail(cryptoPaymentMethodDetail)
                 .build();
-        ApiResponse<PaymentMethod> apiResponse = beneficiaryAPI.createPaymentMethod(getAccessToken(), beneficiaryId, paymentMethod);
+        ApiResponse<PaymentMethod> apiResponse = beneficiaryAPI.createPaymentMethod(beneficiaryId, paymentMethod);
         assertEquals(apiResponse.getCode(), "OK");
         paymentMethodId = apiResponse.getData().getId();
     }
@@ -96,7 +97,7 @@ public class BeneficiaryAPITest extends BaseAPITest {
                 .transferMethod(TransferMethod.INTERNAL)
                 .detail(internalPaymentMethodDetail)
                 .build();
-        ApiResponse<PaymentMethod> apiResponse = beneficiaryAPI.createPaymentMethod(getAccessToken(), beneficiaryId, paymentMethod);
+        ApiResponse<PaymentMethod> apiResponse = beneficiaryAPI.createPaymentMethod(beneficiaryId, paymentMethod);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
@@ -117,7 +118,7 @@ public class BeneficiaryAPITest extends BaseAPITest {
                 .transferMethod(TransferMethod.BANK)
                 .detail(bankPaymentMethodDetail)
                 .build();
-        ApiResponse<PaymentMethod> apiResponse = beneficiaryAPI.createPaymentMethod(getAccessToken(), beneficiaryId, paymentMethod);
+        ApiResponse<PaymentMethod> apiResponse = beneficiaryAPI.createPaymentMethod(beneficiaryId, paymentMethod);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
@@ -125,14 +126,14 @@ public class BeneficiaryAPITest extends BaseAPITest {
     @Test
     @Order(8)
     public void testGetPaymentMethodList() {
-        ApiResponse<List<PaymentMethod>> apiResponse = beneficiaryAPI.getPaymentMethodList(getAccessToken(), beneficiaryId);
+        ApiResponse<List<PaymentMethod>> apiResponse = beneficiaryAPI.getPaymentMethodList(beneficiaryId);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
     @Test
     @Order(9)
     public void testGetPaymentById() {
-        ApiResponse<PaymentMethod> apiResponse = beneficiaryAPI.getPaymentMethod(getAccessToken(), beneficiaryId, paymentMethodId);
+        ApiResponse<PaymentMethod> apiResponse = beneficiaryAPI.getPaymentMethod(beneficiaryId, paymentMethodId);
         assertEquals(apiResponse.getCode(), "OK");
         assertTrue(apiResponse.getData().getDetail() instanceof CryptoPaymentMethodDetail);
     }
@@ -140,14 +141,14 @@ public class BeneficiaryAPITest extends BaseAPITest {
     @Test
     @Order(10)
     public void testDeletePaymentById() {
-        ApiResponse<Void> apiResponse = beneficiaryAPI.deletePaymentMethod(getAccessToken(), beneficiaryId, paymentMethodId);
+        ApiResponse<Void> apiResponse = beneficiaryAPI.deletePaymentMethod(beneficiaryId, paymentMethodId);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
     @Test
     @Order(11)
     public void testDeleteBeneficiaryById() {
-        ApiResponse<Void> apiResponse = beneficiaryAPI.deleteBeneficiaryById(getAccessToken(), beneficiaryId);
+        ApiResponse<Void> apiResponse = beneficiaryAPI.deleteBeneficiaryById(beneficiaryId);
         assertEquals(apiResponse.getCode(), "OK");
     }
 }

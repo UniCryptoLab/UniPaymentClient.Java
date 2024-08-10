@@ -1,6 +1,6 @@
 package io.unipayment.sdk.model;
 
-import lombok.*;
+import lombok.Setter;
 
 import java.util.TreeMap;
 

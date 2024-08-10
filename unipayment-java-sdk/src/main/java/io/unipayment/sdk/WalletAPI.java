@@ -17,31 +17,31 @@ public interface WalletAPI {
      * Get Balances
      */
     @RequestLine("GET /wallet/balances")
-    ApiResponse<List<WalletBalance>> getBalances(@Param("accessToken") String accessToken) throws UnipaymentSdkException;
+    ApiResponse<List<WalletBalance>> getBalances() throws UnipaymentSdkException;
 
     /**
      * Get Accounts
      */
     @RequestLine("GET /wallet/accounts")
-    ApiResponse<List<WalletAccount>> getAccounts(@Param("accessToken") String accessToken) throws UnipaymentSdkException;
+    ApiResponse<List<WalletAccount>> getAccounts() throws UnipaymentSdkException;
 
     /**
      * Query Transactions for Wallet Account's ID
      */
     @RequestLine("GET /wallet/accounts/{id}/transactions")
-    ApiResponse<QueryResult<Transaction>> queryTransactions(@Param("accessToken") String accessToken, @Param("id") String accountId, @QueryMap QueryWalletTransactionsRequest queryWalletTransactionsRequest) throws UnipaymentSdkException;
+    ApiResponse<QueryResult<Transaction>> queryTransactions(@Param("id") String accountId, @QueryMap QueryWalletTransactionsRequest queryWalletTransactionsRequest) throws UnipaymentSdkException;
 
     /**
      * Get Deposit Address
      */
     @RequestLine("GET /wallet/accounts/{id}/deposit/address")
-    ApiResponse<List<DepositAddress>> getDepositAddress(@Param("accessToken") String accessToken, @Param("id") String accountId) throws UnipaymentSdkException;
+    ApiResponse<List<DepositAddress>> getDepositAddress(@Param("id") String accountId) throws UnipaymentSdkException;
 
     /**
      * Get Deposit Bank Account
      */
     @RequestLine("GET /wallet/accounts/{id}/deposit/bank-account")
-    ApiResponse<List<DepositBankAccount>> getDepositBankAccount(@Param("accessToken") String accessToken, @Param("id") String accountId) throws UnipaymentSdkException;
+    ApiResponse<List<DepositBankAccount>> getDepositBankAccount(@Param("id") String accountId) throws UnipaymentSdkException;
 
     /**
      * Create Default Client

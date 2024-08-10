@@ -15,25 +15,25 @@ public interface ExchangeAPI {
      * Get Quote
      */
     @RequestLine("GET /exchange/quote")
-    ApiResponse<Quote> getQuote(@Param("accessToken") String accessToken, @QueryMap QuoteRequest quoteRequest) throws UnipaymentSdkException;
+    ApiResponse<Quote> getQuote(@QueryMap QuoteRequest quoteRequest) throws UnipaymentSdkException;
 
     /**
      * Accept Quote
      */
     @RequestLine("PUT /exchange/quote/{id}")
-    ApiResponse<ExchangeOrder> acceptQuote(@Param("accessToken") String accessToken, @Param("id") String quoteId) throws UnipaymentSdkException;
+    ApiResponse<ExchangeOrder> acceptQuote(@Param("id") String quoteId) throws UnipaymentSdkException;
 
     /**
      * Query Exchange Orders
      */
     @RequestLine("GET /exchange/orders")
-    ApiResponse<QueryResult<ExchangeOrder>> queryExchangeOrders(@Param("accessToken") String accessToken, @QueryMap QueryExchangeOrderRequest queryExchangeOrderRequest) throws UnipaymentSdkException;
+    ApiResponse<QueryResult<ExchangeOrder>> queryExchangeOrders(@QueryMap QueryExchangeOrderRequest queryExchangeOrderRequest) throws UnipaymentSdkException;
 
     /**
      * Get Exchange Order
      */
     @RequestLine("GET /exchange/orders/{id}")
-    ApiResponse<ExchangeOrder> getExchangeOrder(@Param("accessToken") String accessToken, @Param("id") String id) throws UnipaymentSdkException;
+    ApiResponse<ExchangeOrder> getExchangeOrder(@Param("id") String id) throws UnipaymentSdkException;
 
 
     /**

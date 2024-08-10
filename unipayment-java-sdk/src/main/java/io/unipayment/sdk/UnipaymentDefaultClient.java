@@ -13,6 +13,10 @@ import io.unipayment.sdk.client.header.RequiredHeadersRequestInterceptor;
 import io.unipayment.sdk.core.Constants;
 import io.unipayment.sdk.core.config.Configuration;
 import io.unipayment.sdk.core.config.PropertyConfiguration;
+import io.unipayment.sdk.model.TokenRequest;
+import io.unipayment.sdk.model.TokenResponse;
+import io.unipayment.sdk.utils.TokenCacheUtil;
+import io.unipayment.sdk.utils.TokenValidationUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +93,13 @@ final class UnipaymentDefaultClient<T> {
         final List<RequestInterceptor> requestInterceptors = new ArrayList<>();
         requestInterceptors.add(new RequiredHeadersRequestInterceptor());
         if (authHeaderRequired) {
-            requestInterceptors.add(new OauthRequestInterceptor());
+            String accessToken = TokenCacheUtil.getAccessToken();
+            if (accessToken == null || !TokenValidationUtil.isValid(accessToken)) {
+                TokenResponse tokenResponse = OauthTokenAPI.getInstance(configuration).getToken(new TokenRequest(configuration.getClientId(), configuration.getClientSecret()));
+                accessToken = tokenResponse.getAccessToken();
+                TokenCacheUtil.setAccessToken(tokenResponse.getAccessToken(), tokenResponse.getExpiresIn());
+            }
+            requestInterceptors.add(new OauthRequestInterceptor(accessToken));
         }
         builder.requestInterceptors(requestInterceptors);
         String host = configuration.getHost();

@@ -94,16 +94,6 @@ endpoint. This request must include your client_id, client_secret, and the grant
 
 > How to obtain an access token: https://unipayment.readme.io/reference/access-token
 
-```Java
-import io.unipayment.sdk.model.TokenRequest;
-import io.unipayment.sdk.model.TokenResponse;
-
-//Pass the loaded configuration as explained above
-OauthTokenAPI oauthTokenAPI = OauthTokenAPI.getInstance(configuration);
-TokenResponse tokenResponse = oauthTokenAPI.getToken(new TokenRequest(configuration.getClientId(), configuration.getClientSecret()));
-String accessToken = tokenResponse.getAccessToken();
-```
-
 Note: If access token is expired, an exception will be thrown by the SDK.
 
 ## Create an invoice
@@ -125,7 +115,7 @@ CreateInvoiceRequest createInvoiceRequest = CreateInvoiceRequest.builder()
         .extArgs("Merchant Pass Through Data")
         .build();
 
-ApiResponse<Invoice> apiResponse = billingAPI.createInvoice(accessToken, createInvoiceRequest);
+ApiResponse<Invoice> apiResponse = billingAPI.createInvoice(createInvoiceRequest);
 if(apiResponse.getCode().equals("OK")){
     // handle business logic
 }
@@ -178,7 +168,7 @@ import io.unipayment.sdk.model.*;
 CommonAPI commonAPI = CommonAPI.getInstance(configuration);
 
 String notify = "ipn notify from unipayment";
-ApiResponse<Invoice> apiResponse = commonAPI.checkIPN(accessToken, notify);
+ApiResponse<Invoice> apiResponse = commonAPI.checkIPN(notify);
 if(apiResponse.getCode().equals("OK")){
     // handle business logic
 }
