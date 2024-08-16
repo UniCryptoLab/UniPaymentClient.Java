@@ -8,7 +8,7 @@ import io.unipayment.sdk.core.config.Configuration;
 import io.unipayment.sdk.exception.UnipaymentSdkException;
 import io.unipayment.sdk.model.*;
 
-@Headers({"Content-Type: application/json", "Accept: application/json", "Authorization: Bearer {accessToken}"})
+@Headers({"Content-Type: application/json", "Accept: application/json"})
 public interface BillingAPI {
 
     /**

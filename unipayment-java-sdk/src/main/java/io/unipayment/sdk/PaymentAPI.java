@@ -10,7 +10,7 @@ import io.unipayment.sdk.model.*;
 
 import java.util.List;
 
-@Headers({"Content-Type: application/json", "Accept: application/json", "Authorization: Bearer {accessToken}"})
+@Headers({"Content-Type: application/json", "Accept: application/json"})
 public interface PaymentAPI {
 
     /**
