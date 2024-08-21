@@ -22,6 +22,9 @@ public class Invoice {
     @JsonProperty("payment_method_type")
     private PaymentMethodType paymentMethodType;
 
+    @JsonProperty("host_to_host_mode")
+    private boolean hostToHostMode;
+
     @JsonProperty("order_id")
     private String orderId;
 
@@ -68,4 +71,7 @@ public class Invoice {
 
     @JsonProperty("invoice_url")
     private String invoiceUrl;
+
+    @JsonProperty("host_to_host_data")
+    private HostToHostData hostToHostData;
 }

@@ -26,6 +26,9 @@ public class CreateInvoiceRequest {
     @JsonProperty("payment_method_type")
     private String paymentMethodType;
 
+    @JsonProperty("host_to_host_mode")
+    private boolean hostToHostMode;
+
     @JsonProperty("network")
     private String payNetwork;
 

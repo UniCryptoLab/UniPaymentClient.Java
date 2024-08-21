@@ -24,11 +24,15 @@ public class BillingAPITest extends BaseAPITest {
     public void testCreateInvoice() {
         CreateInvoiceRequest createInvoiceRequest = CreateInvoiceRequest.builder()
                 .appId(configuration.getAppId())
-                .priceAmount(2.0)
+                .priceAmount(20.0)
                 .priceCurrency("USD")
                 .orderId(orderId)
                 .lang("en")
                 .extArgs("Merchant Pass Through Data")
+                .paymentMethodType("CRYPTO")
+                .hostToHostMode(true)
+                .payCurrency("BNB")
+                .payNetwork("NETWORK_BSC")
                 .build();
         ApiResponse<Invoice> apiResponse = billingAPI.createInvoice(createInvoiceRequest);
         assertEquals(apiResponse.getCode(), "OK");
