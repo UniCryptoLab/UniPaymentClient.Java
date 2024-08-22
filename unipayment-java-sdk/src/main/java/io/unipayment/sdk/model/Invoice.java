@@ -9,6 +9,7 @@ import io.unipayment.sdk.model.enums.PaymentMethodType;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 @Data
 public class Invoice {
@@ -73,5 +74,5 @@ public class Invoice {
     private String invoiceUrl;
 
     @JsonProperty("host_to_host_data")
-    private HostToHostData hostToHostData;
+    private LinkedHashMap<String, Object> hostToHostData;
 }
