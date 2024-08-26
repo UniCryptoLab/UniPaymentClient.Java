@@ -29,10 +29,6 @@ public class BillingAPITest extends BaseAPITest {
                 .orderId(orderId)
                 .lang("en")
                 .extArgs("Merchant Pass Through Data")
-                .paymentMethodType("CRYPTO")
-                .hostToHostMode(true)
-                .payCurrency("BNB")
-                .payNetwork("NETWORK_BSC")
                 .build();
         ApiResponse<Invoice> apiResponse = billingAPI.createInvoice(createInvoiceRequest);
         assertEquals(apiResponse.getCode(), "OK");
@@ -53,5 +49,50 @@ public class BillingAPITest extends BaseAPITest {
     public void testQueryInvoiceById() {
         ApiResponse<InvoiceDetail> apiResponse = billingAPI.queryInvoiceById(invoiceId);
         assertEquals(apiResponse.getCode(), "OK");
+    }
+
+    @Test
+    @Order(4)
+    public void testCreateInvoice_HostToHost() {
+        CreateInvoiceRequest createInvoiceRequest = CreateInvoiceRequest.builder()
+                .appId(configuration.getAppId())
+                .priceAmount(20.0)
+                .priceCurrency("USD")
+                .orderId(orderId)
+                .lang("en")
+                .extArgs("Merchant Pass Through Data")
+                .paymentMethodType("CRYPTO")
+                .hostToHostMode(true)
+                .payCurrency("BNB")
+                .payNetwork("NETWORK_BSC")
+                .build();
+        ApiResponse<Invoice> apiResponse = billingAPI.createInvoice(createInvoiceRequest);
+        assertEquals(apiResponse.getCode(), "OK");
+    }
+
+    @Test
+    @Order(4)
+    public void testCreateInvoice_BuyerInfo() {
+        CreateInvoiceRequest createInvoiceRequest = CreateInvoiceRequest.builder()
+                .appId(configuration.getAppId())
+                .priceAmount(20.0)
+                .priceCurrency("USD")
+                .orderId(orderId)
+                .lang("en")
+                .extArgs("Merchant Pass Through Data")
+                .buyerInfo(BuyerInfo.builder()
+                        .name("John Doe")
+                        .email("john.doe@example.com")
+                        .address1("Address 1")
+                        .address2("Address 2")
+                        .city("NYC")
+                        .state("NY")
+                        .zipCode("12345")
+                        .country("USA")
+                        .build())
+                .build();
+        ApiResponse<Invoice> apiResponse = billingAPI.createInvoice(createInvoiceRequest);
+        assertEquals(apiResponse.getCode(), "OK");
+        invoiceId = apiResponse.getData().getInvoiceId();
     }
 }

@@ -51,4 +51,7 @@ public class CreateInvoiceRequest {
     @JsonProperty("confirm_speed")
     private ConfirmSpeed confirmSpeed;
 
+    @JsonProperty("buyer_info")
+    private BuyerInfo buyerInfo;
+
 }
