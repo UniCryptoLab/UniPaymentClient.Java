@@ -1,6 +1,7 @@
 package io.unipayment.sdk;
 
 import io.unipayment.sdk.model.*;
+import io.unipayment.sdk.model.enums.FeePayer;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ public class BillingAPITest extends BaseAPITest {
     private static BillingAPI billingAPI;
     private static String invoiceId;
     private static String orderId;
+    private static String refundId;
 
     @BeforeAll
     public static void setUp() {
@@ -37,7 +39,44 @@ public class BillingAPITest extends BaseAPITest {
 
     @Test
     @Order(2)
-    public void testQueryInvoicesByOrderId() {
+    public void testCreateInvoiceRefund() {
+        InvoiceRefundRequest invoiceRefundRequest = InvoiceRefundRequest.builder()
+                .feePayer(FeePayer.MERCHANT)
+                .priceCurrency("USD")
+                .refundPriceAmount(20.0)
+                .reason("Refund")
+                .build();
+        ApiResponse<InvoiceRefund> apiResponse = billingAPI.createInvoiceRefund(invoiceId, invoiceRefundRequest);
+        assertEquals(apiResponse.getCode(), "OK");
+        refundId = apiResponse.getData().getRefundId();
+    }
+
+    @Test
+    @Order(3)
+    public void testQueryInvoiceRefundById() {
+        ApiResponse<InvoiceRefund> apiResponse = billingAPI.queryInvoiceRefundById(refundId);
+        assertEquals(apiResponse.getCode(), "OK");
+    }
+
+    @Test
+    @Order(4)
+    public void testCancelInvoiceRefund() {
+        CancelInvoiceRefundRequest cancelInvoiceRefundRequest = CancelInvoiceRefundRequest.builder().note("Cancel").build();
+        ApiResponse<Void> apiResponse = billingAPI.cancelInvoiceRefund(refundId, cancelInvoiceRefundRequest);
+        assertEquals(apiResponse.getCode(), "OK");
+    }
+
+    @Test
+    @Order(5)
+    public void testQueryInvoiceRefunds() {
+        QueryInvoiceRefundsRequest queryInvoiceRefundsRequest = new QueryInvoiceRefundsRequest();
+        ApiResponse<QueryResult<InvoiceRefund>> apiResponse = billingAPI.queryInvoiceRefunds(queryInvoiceRefundsRequest);
+        assertEquals(apiResponse.getCode(), "OK");
+    }
+
+    @Test
+    @Order(6)
+    public void testQueryInvoices() {
         QueryInvoiceRequest queryInvoiceRequest = new QueryInvoiceRequest();
         queryInvoiceRequest.setOrderId(orderId);
         ApiResponse<QueryResult<Invoice>> apiResponse = billingAPI.queryInvoices(queryInvoiceRequest);
@@ -45,14 +84,14 @@ public class BillingAPITest extends BaseAPITest {
     }
 
     @Test
-    @Order(3)
+    @Order(7)
     public void testQueryInvoiceById() {
         ApiResponse<InvoiceDetail> apiResponse = billingAPI.queryInvoiceById(invoiceId);
         assertEquals(apiResponse.getCode(), "OK");
     }
 
     @Test
-    @Order(4)
+    @Order(8)
     public void testCreateInvoice_HostToHost() {
         CreateInvoiceRequest createInvoiceRequest = CreateInvoiceRequest.builder()
                 .appId(configuration.getAppId())
@@ -63,7 +102,7 @@ public class BillingAPITest extends BaseAPITest {
                 .extArgs("Merchant Pass Through Data")
                 .paymentMethodType("CRYPTO")
                 .hostToHostMode(true)
-                .payCurrency("BNB")
+                .payCurrency("UTT")
                 .payNetwork("NETWORK_BSC")
                 .build();
         ApiResponse<Invoice> apiResponse = billingAPI.createInvoice(createInvoiceRequest);
@@ -71,7 +110,7 @@ public class BillingAPITest extends BaseAPITest {
     }
 
     @Test
-    @Order(4)
+    @Order(9)
     public void testCreateInvoice_BuyerInfo() {
         CreateInvoiceRequest createInvoiceRequest = CreateInvoiceRequest.builder()
                 .appId(configuration.getAppId())

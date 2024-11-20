@@ -1,7 +1,10 @@
 package io.unipayment.sdk.model;
 
+import lombok.Getter;
+
 import java.util.TreeMap;
 
+@Getter
 public class QueryBeneficiaryRequest extends TreeMap<String, Object> {
     private int pageNo = 1;
     private int pageSize = 10;

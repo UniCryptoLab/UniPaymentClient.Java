@@ -24,10 +24,36 @@ public interface BillingAPI {
     ApiResponse<QueryResult<Invoice>> queryInvoices(@QueryMap QueryInvoiceRequest queryInvoiceRequest) throws UnipaymentSdkException;
 
     /**
+     * Create Invoice Refund
+     */
+    @RequestLine("POST /invoices/{invoiceId}/refunds")
+    ApiResponse<InvoiceRefund> createInvoiceRefund(@Param("invoiceId") String invoiceId, InvoiceRefundRequest invoiceRefundRequest) throws UnipaymentSdkException;
+
+
+    /**
+     * Cancel Invoice Refund
+     */
+    @RequestLine("PUT /invoices/refunds/{refundId}/cancel")
+    ApiResponse<Void> cancelInvoiceRefund(@Param("refundId") String refundId, CancelInvoiceRefundRequest cancelInvoiceRefundRequest) throws UnipaymentSdkException;
+
+    /**
+     * Query Invoice Refunds
+     */
+    @RequestLine("GET /invoices/refunds/")
+    ApiResponse<QueryResult<InvoiceRefund>> queryInvoiceRefunds(@QueryMap QueryInvoiceRefundsRequest queryInvoiceRefundsRequest) throws UnipaymentSdkException;
+
+    /**
      * Query Invoice By Id
      */
     @RequestLine("GET /invoices/{invoiceId}")
     ApiResponse<InvoiceDetail> queryInvoiceById(@Param("invoiceId") String invoiceId) throws UnipaymentSdkException;
+
+    /**
+     * Query Invoice Refund By Id
+     */
+    @RequestLine("GET /invoices/refunds/{refundId}")
+    ApiResponse<InvoiceRefund> queryInvoiceRefundById(@Param("refundId") String refundId) throws UnipaymentSdkException;
+
 
     /**
      * Create Default Client

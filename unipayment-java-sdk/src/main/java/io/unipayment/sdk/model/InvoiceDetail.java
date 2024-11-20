@@ -9,5 +9,5 @@ import java.util.List;
 @Data
 public class InvoiceDetail extends Invoice {
     private List<Transaction> transactions;
-
+    private List<InvoiceRefund> refunds;
 }
